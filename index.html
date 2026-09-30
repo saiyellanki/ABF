@@ -98,6 +98,7 @@
 
     <section data-view="scope" class="hidden">
       <div class="wizard">
+        <div class="wizard-nav">
         <ol class="steps" aria-label="Scoping steps">
           <li data-step="1" class="active"><button type="button">1. Engagement</button></li>
           <li data-step="2"><button type="button">2. Role &amp; markets</button></li>
@@ -106,6 +107,8 @@
           <li data-step="5"><button type="button">5. Prohibited &amp; data</button></li>
           <li data-step="6"><button type="button">6. Generate</button></li>
         </ol>
+        <button class="btn-ghost" type="button" data-reset>New engagement</button>
+        </div>
 
         <div>
           <div class="form-section wizard-pane" data-step="1">
@@ -140,6 +143,7 @@
               <button class="btn" type="button" data-next>Continue</button>
               <button class="btn btn-secondary" type="button" id="fill-sample">Fill sample answers</button>
               <button class="btn btn-secondary" type="button" data-import>Import JSON</button>
+              <button class="btn btn-secondary" type="button" data-reset>Clear form</button>
             </div>
           </div>
 
@@ -275,7 +279,7 @@
             <div class="btn-row">
               <button class="btn btn-secondary" type="button" data-back>Back</button>
               <button class="btn btn-accent" type="button" id="generate-btn">Extract applicable requirements</button>
-              <button class="btn btn-secondary" type="button" id="reset-engagement">Start a new engagement</button>
+              <button class="btn btn-secondary" type="button" data-reset>Start a new engagement</button>
             </div>
           </div>
         </div>

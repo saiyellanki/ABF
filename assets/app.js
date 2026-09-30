@@ -352,6 +352,7 @@
     );
     persistSession();
     persistDraft();
+    $("#toast")?.classList.remove("show");
     location.hash = "results";
     renderResults();
     updateNavBadge();
@@ -381,6 +382,8 @@
       li.classList.toggle("done", n < state.step);
     });
     if (state.step === 6) renderPreview();
+    const pane = $(`.wizard-pane[data-step="${state.step}"]`, root);
+    if (pane) pane.scrollIntoView({ block: "start" });
   }
 
   function renderPreview() {
@@ -431,6 +434,7 @@
         <a class="btn" href="#scope">Open scoping wizard</a>
         <button class="btn btn-accent" type="button" id="empty-sample">Open sample workpaper</button>
         <button class="btn btn-secondary" type="button" data-import>Import JSON</button>
+        <button class="btn btn-secondary" type="button" data-reset>Clear session</button>
       </div>`;
     $("#empty-sample")?.addEventListener("click", openSampleWorkpaper);
   }
@@ -517,7 +521,7 @@
         <button class="btn btn-secondary" data-export="memo">Screening memo</button>
         <button class="btn btn-secondary" data-export="agenda">Meeting agenda</button>
         <button class="btn btn-secondary" onclick="window.print()">Print / PDF</button>
-        <button class="btn btn-secondary" type="button" id="reset-from-results">Start a new engagement</button>
+        <button class="btn btn-secondary" type="button" data-reset>Start a new engagement</button>
       </div>
       <div class="workpaper-toolbar no-print">
         <label>Show
@@ -570,7 +574,6 @@
       persistSession();
       renderResults();
     });
-    $("#reset-from-results")?.addEventListener("click", resetEngagement);
     bindCopy(mount);
   }
 
@@ -1290,9 +1293,14 @@
       }, 350)
     );
     $("#generate-btn")?.addEventListener("click", generate);
-    $("#reset-engagement")?.addEventListener("click", resetEngagement);
     $("#fill-sample")?.addEventListener("click", fillSample);
     $("#home-sample")?.addEventListener("click", openSampleWorkpaper);
+    document.addEventListener("click", (e) => {
+      if (e.target.closest("[data-reset]")) {
+        e.preventDefault();
+        resetEngagement();
+      }
+    });
   }
 
   function siteRoot() {
@@ -1322,6 +1330,7 @@
     if (dateInput && !dateInput.value) dateInput.value = state.answers.engagement_date;
     window.addEventListener("hashchange", route);
     route();
+    document.body.setAttribute("data-abf-ready", "1");
   }
 
   document.addEventListener("DOMContentLoaded", boot);

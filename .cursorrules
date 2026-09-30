@@ -25,9 +25,11 @@ The user likes the current workbench view. Walk features end-to-end, improve des
 
 ## Plan
 [X] Review SPA, engine, fixture, CSS
-[ ] Implement UX: sticky header, focus, architecture cards, required name, live preview, sample, import
-[ ] Implement fieldwork: testing status, notes, agenda, filters, copy citation, evidence CSV, screening memo
-[ ] Browser-verify, commit, push, PR, deploy
+[X] Implement UX: sticky header, focus, architecture cards, required name, live preview, sample, import
+[X] Implement fieldwork: testing status, notes, agenda, filters, copy citation, evidence CSV, screening memo
+[X] Browser-verify (Chrome E2E passed), commit, push, PR
+[ ] Deploy Netlify; Pages follows main after merge
+
 
 ## Notes
 Sample answers live at tests/fixtures/credit_assistant.json (EU Annex III(5) + profiling + US bank + RAG).
