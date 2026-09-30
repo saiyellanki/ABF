@@ -1,73 +1,73 @@
-ABF
-ABF - Auditor's Best Friend: The Enterprise Scoping, Technical Assurance &amp; Control Extraction Workbench for AI Risk &amp; IT Audit
+# ABF — Auditor’s Best Friend
 
-ABF (Auditor's Best Friend) is an interactive, professional-grade web application engineered to bridge the gap between static GRC compliance checklists and live technical telemetry. Designed specifically for 2LoD Risk, 3LoD IT Audit, and Model Risk Officers, ABF guides auditors through an adaptive scoping wizard, dynamically generates authoritative control frameworks, provides step-by-step technical walkthrough scripts for engineering teams, and exports audit evidence directly into enterprise GRC platforms like Workiva IRM and ServiceNow.
+Professional workbench for **AI audit scoping**, **control extraction**, **standard alignment**, **evidence**, and **engineer walkthroughs**.
 
-Application Workflow & Data Architecture
-┌───────────────────────────┐      ┌───────────────────────────┐      ┌───────────────────────────┐
-│  1. Interactive Scoping   │ ───► │  2. Control & Evidence    │ ───► │  3. Engineer Interrogation│
-│     Questionnaire Wizard  │      │     Extraction Engine     │      │     & Walkthrough Guide   │
-└───────────────────────────┘      └───────────────────────────┘      └─────────────┬─────────────┘
-                                                                                    │
-                                                                                    ▼
-┌───────────────────────────┐      ┌───────────────────────────┐      ┌───────────────────────────┐
-│  5. Integrated Telemetry  │ ◄─── │  4. Enterprise GRC &      │ ◄─── │  3. Model Risk & Safety   │
-│     & Evidence Collector  │      │     Audit Export Center   │      │     Testing Sandbox       │
-└───────────────────────────┘      └───────────────────────────┘      └───────────────────────────┘
+v2 replaces a three-step demo that invented `ABF-CTL-01`…`05` and treated personal data or “agentic” architecture as EU high-risk. That was wrong. This edition only emits **official identifiers**, cites a source URL on every row, and labels screening conclusions as **indicative**.
 
-Core Feature Modules
-1. Adaptive Scoping Questionnaire WizardAn intake wizard that profiles the target AI system, classifies regulatory exposure, and establishes the audit boundary before controls are mapped.
-2. System Taxonomy & Deployment Architecture:Categorizes the system: Autonomous agentic framework (LangGraph, CrewAI, MCP), RAG-backed LLM, or classic ML decision model.
-3. Evaluates deployment model: Third-party SaaS, fine-tuned open-weight model, or proprietary internal API.
-4. Regulatory & Risk Classification Engine:EU AI Act Classification: Automatically categorizes the system as Prohibited, High-Risk (Annex III critical infrastructure/employment/banking), or General Purpose AI (GPAI).
-5. SR 11-7 / Model Risk Management (MRM): Determines whether the application triggers quantitative validation mandates under SR 11-7.
-6. Technical Boundary Evaluation (4-Gate Intake):Model Training & Data Privacy: Are prompt payloads opt-out verified or used for vendor retraining?
-7. Tenant Isolation Architecture: Multi-tenant shared vector DB vs. KMS-encrypted single-tenant instance.
-8. Context-Aware Access Control (RBAC): How user privileges and entitlement tokens pass to downstream agentic tools.
-9. Session Revocation: Support for Continuous Architecture Event Protocol (CAEP) and token lifecycle termination.
+## Who it is for
 
-Standard-Mapped Control & Evidence Extraction Engine
-Once the audit profile is established, ABF queries its authoritative Knowledge Graph to generate a unified Common Control Framework (CCF) grounded in ISO/IEC 42001, NIST AI RMF 1.0 / NIST AI 600-1, EU AI Act, OWASP LLM Top 10, and SR 11-7.
+Second-line risk, internal audit (3LoD), and model-risk officers who need to:
 
+1. Scope an AI system (purpose, actor role, markets, architecture).
+2. See which **NIST AI RMF 1.0** outcomes, **EU AI Act** articles/annexes, **ISO/IEC 42001** Annex A titles, **SR 11-7**, **OWASP LLM Top 10 2025**, and **NIST AI 600-1** GAI risks apply.
+3. Walk AI engineers and auditee teams through questions, live observation, and evidence.
+4. Export a workpaper (JSON, CSV, Markdown, print/PDF) into the audit file.
 
-                                  ┌───────────────────────────────┐
-                                  │      NIST AI RMF 1.0 &        │
-                                  │       NIST AI 600-1           │
-                                  └───────────────┬───────────────┘
-                                                  │
-┌───────────────────────────────┐                 ▼                 ┌───────────────────────────────┐
-│        EU AI Act              │ ──────►  [  ABF CONTROL  ] ◄───── │       ISO/IEC 42001           │
-│   (Art. 10, 14, 15, etc.)     │          [  KNOWLEDGE    ]        │   (AIMS Controls A.8/A.9)     │
-└───────────────────────────────┘          [    GRAPH      ]        └───────────────────────────────┘
-                                                  ▲
-                                                  │
-                                  ┌───────────────┴───────────────┐
-                                  │    OWASP LLM Top 10 &         │
-                                  │    SR 11-7 Model Risk         │
-                                  └───────────────────────────────┘
+## What “100% sourced” means here
 
+| Source | What ABF stores | What ABF does not do |
+| --- | --- | --- |
+| [NIST AI 100-1](https://doi.org/10.6028/NIST.AI.100-1) | All **72** subcategory outcomes (GOVERN, MAP, MEASURE, MANAGE) | Treat the RMF as a mandatory law |
+| [Regulation (EU) 2024/1689](https://eur-lex.europa.eu/eli/reg/2024/1689/oj) | Article-level paraphrases + [Annex III](https://ai-act-service-desk.ec.europa.eu/en/ai-act/annex-3) use cases | Issue a legal classification or CE opinion |
+| [ISO/IEC 42001:2023](https://www.iso.org/standard/81230.html) | **Titles** of 38 Annex A controls | Quote copyrighted “shall” text |
+| [OCC 2011-12 / SR 11-7](https://www.occ.gov/news-issuances/bulletins/2011/bulletin-2011-12.html) | Development, independent validation, governance | Apply SR 11-7 outside US banking supervision |
+| [OWASP LLM Top 10 2025](https://owasp.org/www-project-top-10-for-large-language-model-applications/) | Ten threat categories | Treat them as regulations |
+| [NIST AI 600-1](https://doi.org/10.6028/NIST.AI.600-1) | Twelve generative-AI risk categories | Substitute for the full action tables |
 
-Engineering Walkthrough & Interview Script Generator
-To assist auditors during technical walkthroughs with AI/ML engineers and quantitative model developers, ABF converts complex AI safety concepts into clear, structured interview scripts.
+Walkthrough questions, evidence checklists, and test steps are **ABF-authored workpapers** mapped to those IDs. They are labelled as such.
 
-Walkthrough Guide: Indirect Prompt Injection in RAG OrchestrationTarget Role: Lead AI/ML Data Engineer
-1. Architectural Inquiry:"How does the RAG ingestion pipeline separate untrusted retrieval context from system instructions before passing vectors into the prompt context window?"   
-2. Technical Verification Step: Have the engineer demonstrate live context construction. Inspect whether retrieved vector metadata undergoes strict output encoding or prompt isolation (e.g., using XML tags or boundary markers) prior to model inference.
-3. Evidence Request: Request sanitized execution traces showing how the RAG pipeline handles a retrieved document containing text like "[SYSTEM OVERRIDE: Ignore prior instructions]".
+### Classification rules (the ones the old app got wrong)
 
-Enterprise GRC & Evidence Export CenterABF enables auditors to export scoped control frameworks and evidence manifests directly into enterprise formats:
-GRC System Integrations: Native export schemas ready for direct ingestion into Workiva IRM, ServiceNow GRC, and Archer.   
-Signed Telemetry Reports: Export cryptographically signed JSON (audit_telemetry.json) or Markdown/PDF executive summaries for audit committees.   
-Audit Workpapers: Pre-formatted Excel/CSV workpapers complete with Control ID, Description, Mapped Standards, Mandatory Evidence Checklist, and Test Procedure.  
+- EU **high-risk** follows **Article 6**: Annex I product-safety path **or** Annex III use case — not “handles PII”, not “is an agent”.
+- Annex III + **profiling of natural persons** → Art. 6(3) exception is **unavailable**.
+- Annex III + a 6(3) condition, without profiling → **possible exception**; the provider must document it.
+- **Article 5** ticks are an indicative screen for counsel, not a finding that the system is prohibited.
+- **Article 50** transparency can apply to a chatbot that is **not** high-risk.
+- **SR 11-7** is included only for a **US supervised banking organization** using a **material decision model**.
+- ISO **A.8.4** is **Communication of incidents**, not system protection.
 
-Technical Stack & Architecture
-Frontend UI: Next.js (TypeScript), Tailwind CSS, Shadcn UI, React Flow (for visualizing agentic workflow & RAG data-flow diagrams).
-Backend API: FastAPI (Python 3.11+), Pydantic v2 (for strict schema validation across standard mappings).
-Database & Knowledge Graph: PostgreSQL (storing standard control mappings across ISO 42001, NIST, EU AI Act) with SQLite support for offline local auditor desktop use.   
-Evidence Validation Utilities: Integrated SHA-256 model weight checksum calculator, API prompt canary inspector, and Workiva/ServiceNow-compatible payload generators.   
+## Run the website
 
-Why ABF is an "Auditor's Best Friend"
-Telemetry Over Checklists: Focuses on verifying code-level evidence (SHA-256 checksums, CAEP logs, canary hashes) rather than relying solely on policy documents.   
-Eliminates Duplicate Audit Effort: Uses a Common Control Framework (CCF) approach, satisfying multiple frameworks (NIST, ISO, EU AI Act) from a single evidence set.   
-Translator for Auditors & Engineers: Translates complex ML concepts (Disparate Impact Ratio, RAG vector isolation, context retention limits) into structured, defensible audit procedures.   
-100% Authoritative Sourcing: Every control and evidence requirement is explicitly mapped to published standards without subjective or ungrounded metrics.  
+Static site (Netlify-ready). From the repository root:
+
+```bash
+python3 tools/build_library.py          # regenerates data/library.json
+python3 -m http.server 4173
+```
+
+Open `http://127.0.0.1:4173/`. Use **Scope an audit** → extract requirements → export CSV / Markdown / JSON.
+
+`netlify.toml` publishes the repository root. No Node build.
+
+## Python engine
+
+```bash
+python3 -m unittest tests.test_classify -v
+python3 tools/abf_cli.py --answers path/to/answers.json --out workpaper.json
+python3 walkthrough_generator.py --control EU-ART-14
+```
+
+## Repository layout
+
+```
+index.html              # workbench UI
+assets/                 # CSS + screening engine + app
+data/library.json       # generated sourced library
+abf/                    # NIST, EU, ISO, overlays, procedures, classify
+tools/build_library.py
+tests/test_classify.py
+```
+
+## Disclaimer
+
+ABF is not legal advice, a notified-body conformity assessment, or an ISO certification. Obtain the authentic Official Journal text, NIST publications, and purchased ISO/IEC 42001:2023 before relying on a conclusion in an audit opinion.

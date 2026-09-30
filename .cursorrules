@@ -1,0 +1,36 @@
+# Lessons
+
+## User Specified Lessons
+- You have a python venv in ./venv. Use it.
+- Include info useful for debugging in the program output.
+- Read the file before you try to edit it.
+- Due to Cursor's limit, when you use `git` and `gh` and need to submit a multiline commit message, first write the message in a file, and then use `git commit -F <filename>` or similar command to commit. And then remove the file. Include "[Cursor] " in the commit message and PR title.
+
+## Cursor learned
+- For search results, ensure proper handling of different character encodings (UTF-8) for international queries
+- Add debug information to stderr while keeping the main output clean in stdout for better pipeline integration
+- When using seaborn styles in matplotlib, use 'seaborn-v0_8' instead of 'seaborn' as the style name due to recent seaborn version changes
+- Use 'gpt-4o' as the model name for OpenAI's GPT-4 with vision capabilities
+- Never invent AI-audit control IDs (e.g. ABF-CTL-01). Export the official identifier (NIST GOVERN 1.1, EU AI Act Art. 14, ISO/IEC 42001 A.8.4).
+- ISO/IEC 42001 A.8 is "Information for interested parties"; A.8.4 is "Communication of incidents", not system protection. Do not reuse ISO 27001 numbering on ISO 42001.
+- EU AI Act high-risk is Art. 6 + Annex I/III, not "handles PII" or "is agentic". Art. 6(3) exceptions and profiling override must be modeled.
+- Distinguish official requirement text from ABF-authored audit procedures and evidence checklists.
+
+# Scratchpad
+
+## Task
+Rebuild ABF from a 3-step demo with five invented controls into a professional AI-audit workbench for 2LoD/3LoD auditors: scoping, sourced control extraction, standard alignment, evidence, and engineer walkthroughs. Information must be attributable to NIST AI RMF 1.0, EU AI Act (Reg. 2024/1689), ISO/IEC 42001:2023 titles, SR 11-7 / OCC 2011-12, OWASP LLM Top 10, and NIST AI 600-1.
+
+## Plan
+[X] Review current HTML/Python and identify inaccuracies
+[X] Pull official NIST subcategory outcomes, EU Annex III / Arts. 5–15/26/50–55, ISO 42001 Annex A titles
+[X] Author sourced library + conservative classification engine
+[X] Build professional static SPA (Netlify) with library, scoping, results, walkthroughs, exports
+[X] Tests for classification (PII ≠ high-risk; Annex III + profiling = high-risk)
+[ ] Browser/manual verification, commit, PR
+
+## Product decisions
+- Library = official IDs and official/public text. Procedures = clearly labeled ABF workpapers.
+- ISO 42001: titles only; full "shall" text is copyrighted — point auditors to the purchased standard.
+- Classification output is an indicative screening with cited legal/standard logic, not a legal opinion.
+- No fake Workiva/ServiceNow native APIs. Export workpaper CSV/JSON/Markdown.

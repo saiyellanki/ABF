@@ -3,431 +3,270 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Auditor's Best Friend (ABF) — Plain-English AI Audit Assistant</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @media print {
-      .no-print { display: none !important; }
-      .print-only { display: block !important; }
-      body { background: white !important; color: black !important; padding: 0 !important; }
-      .card-print { border: 1px solid #ccc !important; background: white !important; color: black !important; box-shadow: none !important; }
-    }
-  </style>
+  <title>ABF — Auditor’s Best Friend · AI audit workbench</title>
+  <meta name="description" content="Professional AI-audit scoping workbench. Extract NIST AI RMF, EU AI Act, ISO/IEC 42001, SR 11-7, and OWASP LLM controls with cited sources, evidence, and engineer walkthroughs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/abf.css">
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased p-4 md:p-8">
-
-  <div class="max-w-5xl mx-auto space-y-8">
-    
-    <!-- HEADER -->
-    <header class="border-b border-slate-800 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 no-print">
-      <div>
-        <div class="flex items-center space-x-3">
-          <span class="text-3xl">🛡️</span>
-          <h1 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">
-            Auditor's Best Friend (ABF)
-          </h1>
+<body>
+  <header class="app-header">
+    <div class="app-header-inner">
+      <div class="brand">
+        <div class="mark">ABF</div>
+        <div>
+          <h1>Auditor’s Best Friend</h1>
+          <p>Sourced AI-audit scoping, control extraction, and walkthrough workbench</p>
         </div>
-        <p class="text-slate-400 text-sm mt-1">
-          Simple, Plain-English AI Audit & Risk Scoping Wizard for Internal Audit, Risk, & Compliance Teams
-        </p>
       </div>
-      <div class="flex items-center space-x-2">
-        <span class="bg-indigo-950/80 text-indigo-300 text-xs font-medium px-3 py-1.5 rounded-full border border-indigo-800/60">
-          Non-Technical Auditor Mode
-        </span>
-      </div>
-    </header>
-
-    <!-- WIZARD STEP NAVIGATION -->
-    <div id="stepNav" class="grid grid-cols-3 gap-2 no-print">
-      <div id="navStep1" class="p-3 rounded-xl border border-cyan-500 bg-cyan-950/30 text-cyan-300 text-xs font-semibold flex items-center space-x-2">
-        <span class="bg-cyan-500 text-slate-950 rounded-full w-5 h-5 flex items-center justify-center font-bold">1</span>
-        <span>AI System Info</span>
-      </div>
-      <div id="navStep2" class="p-3 rounded-xl border border-slate-800 bg-slate-900/40 text-slate-500 text-xs font-semibold flex items-center space-x-2">
-        <span class="bg-slate-800 text-slate-400 rounded-full w-5 h-5 flex items-center justify-center font-bold">2</span>
-        <span>Safety Checks</span>
-      </div>
-      <div id="navStep3" class="p-3 rounded-xl border border-slate-800 bg-slate-900/40 text-slate-500 text-xs font-semibold flex items-center space-x-2">
-        <span class="bg-slate-800 text-slate-400 rounded-full w-5 h-5 flex items-center justify-center font-bold">3</span>
-        <span>Audit Workpaper</span>
+      <div class="header-meta">
+        <div>v2.0 · workpaper edition</div>
+        <div>NIST AI 100-1 · Reg. (EU) 2024/1689 · ISO/IEC 42001 titles</div>
       </div>
     </div>
+    <nav class="primary" aria-label="Primary">
+      <a href="#home">Overview</a>
+      <a href="#scope">Scope an audit</a>
+      <a href="#results">Workpaper</a>
+      <a href="#library">Control library</a>
+      <a href="#sources">Sources &amp; method</a>
+    </nav>
+  </header>
 
-    <!-- MAIN FORM CONTAINER -->
-    <div id="wizardContainer" class="bg-slate-900/90 p-6 md:p-8 rounded-2xl border border-slate-800 shadow-2xl space-y-6">
-      
-      <!-- STEP 1: SIMPLE SYSTEM PROFILE -->
-      <div id="wizardStep1" class="space-y-6">
+  <main>
+    <section data-view="home">
+      <div class="hero">
         <div>
-          <h2 class="text-xl font-bold text-slate-100">Step 1: Tell us about the AI System you are auditing</h2>
-          <p class="text-xs text-slate-400 mt-1">Basic details about who owns the system and what it does.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">AI Project / System Name</label>
-            <input id="sysName" type="text" placeholder="e.g. Customer Support AI Assistant" value="Customer Support AI Assistant" 
-                   class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-cyan-500">
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Business Unit / Department</label>
-            <input id="bizUnit" type="text" placeholder="e.g. Retail Banking Operations" value="Retail Banking Operations" 
-                   class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-cyan-500">
+          <p class="kicker">For 2LoD risk, 3LoD IT audit, and model-risk officers</p>
+          <h2>Scope the system. Extract the real requirements. Walk the engineers through evidence.</h2>
+          <p class="lede">
+            ABF is a professional workbench for AI audits. Answer questions about intended purpose,
+            role, and architecture. The engine returns <strong>official identifiers</strong> from
+            NIST AI RMF 1.0, the EU AI Act, ISO/IEC 42001 (titles), SR 11-7, OWASP LLM Top 10 2025,
+            and NIST AI 600-1 — each with a citation, source URL, evidence to request, and interview
+            script. It does not invent “ABF-CTL” controls, and it will not label a chatbot high-risk
+            merely because it handles personal data.
+          </p>
+          <div class="btn-row">
+            <a class="btn" href="#scope">Start a scoping engagement</a>
+            <a class="btn btn-secondary" href="#library">Browse the sourced library</a>
           </div>
         </div>
-
-        <!-- AI TYPE SELECTION (VISUAL CARDS) -->
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-2">What kind of AI is this? (Select one)</label>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div onclick="selectTaxonomy('AGENTIC', this)" id="cardAgentic" class="tax-card cursor-pointer p-4 rounded-xl border-2 border-cyan-500 bg-cyan-950/20 hover:border-cyan-400 space-y-2">
-              <span class="text-2xl">🤖</span>
-              <h3 class="font-bold text-sm text-slate-200">Autonomous AI Agent</h3>
-              <p class="text-[11px] text-slate-400">An AI that takes independent actions, sends emails, calls APIs, or executes database workflows.</p>
-            </div>
-
-            <div onclick="selectTaxonomy('RAG', this)" id="cardRAG" class="tax-card cursor-pointer p-4 rounded-xl border-2 border-slate-800 bg-slate-950 hover:border-cyan-500 space-y-2">
-              <span class="text-2xl">📚</span>
-              <h3 class="font-bold text-sm text-slate-200">Document Search AI (RAG)</h3>
-              <p class="text-[11px] text-slate-400">An AI chatbot that searches company PDFs, policy documents, or knowledge bases to answer questions.</p>
-            </div>
-
-            <div onclick="selectTaxonomy('CLASSIC_ML', this)" id="cardML" class="tax-card cursor-pointer p-4 rounded-xl border-2 border-slate-800 bg-slate-950 hover:border-cyan-500 space-y-2">
-              <span class="text-2xl">📊</span>
-              <h3 class="font-bold text-sm text-slate-200">Scoring / Decision Model</h3>
-              <p class="text-[11px] text-slate-400">Traditional machine learning model used for credit scoring, fraud detection, or risk predictions.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- SENSITIVITY CHECKBOXES -->
-        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80 space-y-3">
-          <h3 class="text-xs font-semibold text-slate-300">Data & Impact Boundaries:</h3>
-          <label class="flex items-start space-x-3 cursor-pointer">
-            <input id="processPII" type="checkbox" checked class="mt-0.5 rounded bg-slate-900 border-slate-700 text-cyan-500">
-            <div>
-              <span class="text-xs font-medium text-slate-200 block">Does this AI handle customer personal data or sensitive information?</span>
-              <span class="text-[11px] text-slate-500">Includes names, account details, SSNs, financial records, or non-public personal info.</span>
-            </div>
-          </label>
-
-          <label class="flex items-start space-x-3 cursor-pointer">
-            <input id="financialImpact" type="checkbox" checked class="mt-0.5 rounded bg-slate-900 border-slate-700 text-cyan-500">
-            <div>
-              <span class="text-xs font-medium text-slate-200 block">Does this AI influence financial decisions, credit approvals, or underwriting?</span>
-              <span class="text-[11px] text-slate-500">Triggers banking regulations (SR 11-7 / OCC 2011-12 Model Risk Management).</span>
-            </div>
-          </label>
-        </div>
-
-        <button onclick="goToStep(2)" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-semibold py-3 rounded-xl transition text-sm">
-          Continue to Step 2: Safety Checks ➔
-        </button>
+        <aside class="hero-card">
+          <h3>Engagement path</h3>
+          <ol>
+            <li>Record the system, owner, auditor role, and markets.</li>
+            <li>Characterize architecture (classic ML, RAG, agentic, GPAI).</li>
+            <li>Screen intended purpose against EU Annex III and Article 5 — with Art. 6(3) modelled.</li>
+            <li>Export applicable official requirements, evidence, and walkthroughs.</li>
+          </ol>
+        </aside>
       </div>
 
-      <!-- STEP 2: PLAIN-ENGLISH SAFETY CHECKS -->
-      <div id="wizardStep2" class="hidden space-y-6">
+      <div class="notice">
+        ABF is an audit-support tool, not legal advice, a notified-body opinion, or an ISO certification
+        decision. Screening conclusions are labelled <em>indicative</em> and cite the rule applied.
+        ISO/IEC 42001 “shall” statements are copyrighted and are not reproduced; titles only.
+      </div>
+
+      <div class="grid-3">
+        <article class="panel">
+          <p class="kicker">01</p>
+          <h3>Accurate classification</h3>
+          <p>EU high-risk follows Article 6 and Annex I/III. Profiling removes the 6(3) exception. SR 11-7 applies to models at supervised US banks, not every LLM.</p>
+        </article>
+        <article class="panel">
+          <p class="kicker">02</p>
+          <h3>Official IDs, not folklore</h3>
+          <p>GOVERN 1.1, Article 14, A.8.4 (communication of incidents — not “system protection”). Every row has a URL you can open during fieldwork.</p>
+        </article>
+        <article class="panel">
+          <p class="kicker">03</p>
+          <h3>Walkthroughs that engineers can answer</h3>
+          <p>Procedures tell you whom to sit with, what to ask, what to watch in a live demo, and what to file as evidence — labelled as ABF workpapers.</p>
+        </article>
+      </div>
+    </section>
+
+    <section data-view="scope" class="hidden">
+      <div class="wizard">
+        <ol class="steps">
+          <li data-step="1" class="active">1. Engagement</li>
+          <li data-step="2">2. Role &amp; markets</li>
+          <li data-step="3">3. Architecture</li>
+          <li data-step="4">4. Intended purpose</li>
+          <li data-step="5">5. Prohibited &amp; data</li>
+          <li data-step="6">6. Generate</li>
+        </ol>
+
         <div>
-          <h2 class="text-xl font-bold text-slate-100">Step 2: Technical Safety & Vendor Safeguards</h2>
-          <p class="text-xs text-slate-400 mt-1">Answer these 4 simple questions based on your conversations with the engineering team.</p>
-        </div>
-
-        <div class="space-y-4">
-          <!-- GATE 1 -->
-          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-            <div class="flex justify-between items-start">
-              <h3 class="text-xs font-bold text-slate-200">1. Vendor Data Privacy & Retraining</h3>
-              <span class="text-[10px] text-indigo-400 font-mono">Gate 1</span>
+          <div class="form-section wizard-pane" data-step="1">
+            <h2>Engagement record</h2>
+            <p class="help">These fields header the workpaper. Nothing here classifies the system.</p>
+            <div class="two">
+              <label class="field">AI system name
+                <input type="text" name="system_name" placeholder="e.g. Retail collections ranking model">
+              </label>
+              <label class="field">System owner
+                <input type="text" name="owner" placeholder="Named accountable executive">
+              </label>
+              <label class="field">Business unit
+                <input type="text" name="business_unit">
+              </label>
+              <label class="field">Auditor
+                <input type="text" name="auditor">
+              </label>
+              <label class="field">Engagement ID
+                <input type="text" name="engagement_id" placeholder="IA-2026-014">
+              </label>
+              <label class="field">Workpaper date
+                <input type="date" name="engagement_date">
+              </label>
             </div>
-            <p class="text-[11px] text-slate-400">Does the AI vendor (e.g. OpenAI, Microsoft, AWS) promise NOT to train their public models on your company data?</p>
-            <select id="gate1" class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-200">
-              <option value="PASS">✅ Yes — We have an Enterprise Agreement with data opt-out verified</option>
-              <option value="GAP">⚠️ No / Unsure — We use standard public APIs that might retrain on our prompts</option>
-            </select>
+            <label class="field">Intended purpose
+              <span class="hint">One or two sentences. This is the EU Art. 11 / Annex IV input and the SR 11-7 purpose statement.</span>
+              <textarea name="intended_purpose" placeholder="What decision or output does this system produce, for whom, in which setting?"></textarea>
+            </label>
+            <button class="btn" type="button" data-next>Continue</button>
           </div>
 
-          <!-- GATE 2 -->
-          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-            <div class="flex justify-between items-start">
-              <h3 class="text-xs font-bold text-slate-200">2. Customer Data Isolation</h3>
-              <span class="text-[10px] text-indigo-400 font-mono">Gate 2</span>
+          <div class="form-section wizard-pane hidden" data-step="2">
+            <h2>Role and markets</h2>
+            <p class="help">EU duties split by <span class="cite">Art. 3</span> actor (provider vs deployer) and by whether output is used in the Union. SR 11-7 is US banking supervisory guidance only.</p>
+            <label class="field">Your organization’s role for this system
+              <select name="role">
+                <option value="deployer">Deployer (uses a system supplied by others)</option>
+                <option value="provider">Provider (places on the market / puts into service)</option>
+                <option value="both">Both provider and deployer</option>
+                <option value="gpai_provider">GPAI model provider (Chapter V)</option>
+              </select>
+            </label>
+            <p class="cite">Markets / supervisory perimeter</p>
+            <div class="check-grid">
+              <label class="check"><input type="checkbox" data-group="markets" value="eu"> EU / output used in the EU</label>
+              <label class="check"><input type="checkbox" data-group="markets" value="uk"> United Kingdom</label>
+              <label class="check"><input type="checkbox" data-group="markets" value="us_banking"> US supervised banking organization</label>
+              <label class="check"><input type="checkbox" data-group="markets" value="us_other"> United States (non-bank)</label>
+              <label class="check"><input type="checkbox" data-group="markets" value="other"> Other / global enterprise</label>
             </div>
-            <p class="text-[11px] text-slate-400">How is company data stored and separated in the AI database?</p>
-            <select id="gate2" class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-200">
-              <option value="KMS_SINGLE_TENANT">✅ Dedicated single-tenant database with customer-managed encryption keys (KMS)</option>
-              <option value="SHARED_MULTI_TENANT">⚠️ Shared database across multiple applications (Logical isolation only)</option>
-            </select>
+            <label class="check"><input type="checkbox" name="iso42001_aims" checked>
+              Include ISO/IEC 42001:2023 Annex A titles (obtain the standard for authentic text)
+            </label>
+            <div class="btn-row">
+              <button class="btn btn-secondary" type="button" data-back>Back</button>
+              <button class="btn" type="button" data-next>Continue</button>
+            </div>
           </div>
 
-          <!-- GATE 3 -->
-          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-            <div class="flex justify-between items-start">
-              <h3 class="text-xs font-bold text-slate-200">3. User Permission Enforcement</h3>
-              <span class="text-[10px] text-indigo-400 font-mono">Gate 3</span>
+          <div class="form-section wizard-pane hidden" data-step="3">
+            <h2>System characterization</h2>
+            <p class="help">Architecture selects overlays (OWASP LLM Top 10, NIST AI 600-1). It does not, by itself, create EU high-risk status.</p>
+            <p class="cite">Architecture (select all that apply)</p>
+            <div class="check-grid">
+              <label class="check"><input type="checkbox" data-group="architecture" value="classic_ml"> Classic ML / scoring model</label>
+              <label class="check"><input type="checkbox" data-group="architecture" value="llm_chat"> Generative LLM (chat / content)</label>
+              <label class="check"><input type="checkbox" data-group="architecture" value="rag"> Retrieval-augmented (RAG)</label>
+              <label class="check"><input type="checkbox" data-group="architecture" value="agentic"> Agentic (tools, MCP, write actions)</label>
+              <label class="check"><input type="checkbox" data-group="architecture" value="biometrics"> Biometrics / computer vision</label>
             </div>
-            <p class="text-[11px] text-slate-400">Does the AI check what the human user is allowed to see BEFORE returning answers or taking actions?</p>
-            <select id="gate3" class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-200">
-              <option value="PASS">✅ Yes — User entitlement tokens are checked before actions execute</option>
-              <option value="GAP">⚠️ No — The AI runs with master administrator service credentials</option>
-            </select>
+            <label class="check"><input type="checkbox" name="third_party_model_or_api"> Third-party model, API, or managed vector store</label>
+            <label class="check"><input type="checkbox" name="gpai_model_provider"> We provide a general-purpose AI model (not only an app on top of one)</label>
+            <label class="check"><input type="checkbox" name="gpai_systemic_flops"> Training compute exceeded 10<sup>25</sup> FLOPs (Art. 51 presumption)</label>
+            <label class="check"><input type="checkbox" name="interacts_with_natural_persons"> Natural persons interact with the system (chatbot, assistant, voice)</label>
+            <label class="check"><input type="checkbox" name="synthetic_content"> Generates synthetic audio, image, video, or text content</label>
+            <div class="btn-row">
+              <button class="btn btn-secondary" type="button" data-back>Back</button>
+              <button class="btn" type="button" data-next>Continue</button>
+            </div>
           </div>
 
-          <!-- GATE 4 -->
-          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-            <div class="flex justify-between items-start">
-              <h3 class="text-xs font-bold text-slate-200">4. Emergency Revocation (Kill Switch)</h3>
-              <span class="text-[10px] text-indigo-400 font-mono">Gate 4</span>
+          <div class="form-section wizard-pane hidden" data-step="4">
+            <h2>Intended purpose versus Annex III</h2>
+            <p class="help">High-risk under <span class="cite">Art. 6(2)</span> is a use-case test. Tick a paragraph only if the authentic Annex III text matches the intended purpose. Source: Commission AI Act Service Desk, Annex III.</p>
+            <label class="check"><input type="checkbox" name="annex_i_safety_component"> Safety component of an Annex I product that requires third-party conformity assessment <span class="cite">Art. 6(1)</span></label>
+            <div class="check-grid">
+              <label class="check"><input type="checkbox" name="annex_iii_1"> Biometrics (RBI, sensitive categorisation, emotion) <span class="cite">III(1)</span></label>
+              <label class="check"><input type="checkbox" name="annex_iii_2"> Critical-infrastructure safety component <span class="cite">III(2)</span></label>
+              <label class="check"><input type="checkbox" name="annex_iii_3"> Education / vocational training <span class="cite">III(3)</span></label>
+              <label class="check"><input type="checkbox" name="annex_iii_4"> Employment, workers’ management, self-employment <span class="cite">III(4)</span></label>
+              <label class="check"><input type="checkbox" name="annex_iii_5"> Essential public/private services (credit, insurance, benefits, emergency) <span class="cite">III(5)</span></label>
+              <label class="check"><input type="checkbox" name="annex_iii_6"> Law enforcement <span class="cite">III(6)</span></label>
+              <label class="check"><input type="checkbox" name="annex_iii_7"> Migration, asylum, border control <span class="cite">III(7)</span></label>
+              <label class="check"><input type="checkbox" name="annex_iii_8"> Administration of justice / democratic processes <span class="cite">III(8)</span></label>
             </div>
-            <p class="text-[11px] text-slate-400">Can security immediately disable an AI session if an employee leaves or a risk occurs?</p>
-            <select id="gate4" class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-200">
-              <option value="PASS">✅ Yes — Integrated with Single Sign-On (SSO) for instant token revocation</option>
-              <option value="GAP">⚠️ No — Sessions remain active until manual server restart</option>
-            </select>
+            <label class="check"><input type="checkbox" name="profiles_natural_persons"> Profiles natural persons (automated processing to evaluate personal aspects)
+              <span class="cite">removes Art. 6(3) exception</span></label>
+            <p class="cite">Article 6(3) — tick only if you believe a listed condition applies (provider must document)</p>
+            <div class="check-grid">
+              <label class="check"><input type="checkbox" name="art63_narrow_procedural"> Narrow procedural task</label>
+              <label class="check"><input type="checkbox" name="art63_improves_human"> Improves a previously completed human activity</label>
+              <label class="check"><input type="checkbox" name="art63_detects_patterns"> Detects decision-making patterns without replacing human assessment</label>
+              <label class="check"><input type="checkbox" name="art63_preparatory"> Purely preparatory task to an Annex III assessment</label>
+            </div>
+            <div class="btn-row">
+              <button class="btn btn-secondary" type="button" data-back>Back</button>
+              <button class="btn" type="button" data-next>Continue</button>
+            </div>
           </div>
-        </div>
 
-        <div class="flex space-x-3">
-          <button onclick="goToStep(1)" class="w-1/3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium py-3 rounded-xl transition text-sm">
-            ⬅️ Back
-          </button>
-          <button onclick="generateFinalWorkpaper()" class="w-2/3 bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white font-semibold py-3 rounded-xl transition text-sm shadow-lg shadow-indigo-600/30">
-            ✨ Generate Final Audit Workpaper ➔
-          </button>
+          <div class="form-section wizard-pane hidden" data-step="5">
+            <h2>Prohibited practices, data, and model use</h2>
+            <p class="help">Article 5 items are a <strong>screen</strong>. A tick produces an indicative finding for counsel — not a determination that the system is prohibited.</p>
+            <p class="cite">Article 5 indicators (non-exhaustive labels)</p>
+            <div class="check-grid">
+              <label class="check"><input type="checkbox" data-group="art5_practices" value="social_scoring"> Social scoring causing detrimental treatment</label>
+              <label class="check"><input type="checkbox" data-group="art5_practices" value="untargeted_scrape"> Untargeted facial-image scraping for a recognition database</label>
+              <label class="check"><input type="checkbox" data-group="art5_practices" value="emotion_work_edu"> Emotion recognition at work or in education (check exceptions)</label>
+              <label class="check"><input type="checkbox" data-group="art5_practices" value="criminality_profiling"> Criminality risk solely from profiling / personality</label>
+              <label class="check"><input type="checkbox" data-group="art5_practices" value="rbi_realtime"> Real-time remote biometric ID in public spaces (law enforcement)</label>
+              <label class="check"><input type="checkbox" data-group="art5_practices" value="manipulative"> Subliminal / manipulative techniques causing significant harm</label>
+            </div>
+            <label class="check"><input type="checkbox" name="personal_data"> Processes personal data</label>
+            <label class="check"><input type="checkbox" name="automated_decision"> Output can take effect with limited or no human review</label>
+            <label class="check"><input type="checkbox" name="material_business_decision_model"> Quantitative method used for material business decisions (credit, capital, underwriting, etc.)</label>
+            <label class="check"><input type="checkbox" name="fria_role"> Deployer is a public body, public-service provider, or Annex III 5(b)/(c) actor (Art. 27 FRIA screen)</label>
+            <label class="check"><input type="checkbox" name="deepfake"> Deployer of deep-fake image/audio/video (Art. 50 disclosure)</label>
+            <div class="btn-row">
+              <button class="btn btn-secondary" type="button" data-back>Back</button>
+              <button class="btn" type="button" data-next>Continue</button>
+            </div>
+          </div>
+
+          <div class="form-section wizard-pane hidden" data-step="6">
+            <h2>Generate the workpaper</h2>
+            <p class="help">ABF will filter the sourced library using the answers on the previous steps, attach walkthrough procedures where we have authored them, and leave every official citation intact.</p>
+            <div class="notice info">
+              You can still change answers by stepping back. Generated files are workpapers for the audit file, not vendor-API payloads.
+            </div>
+            <div class="btn-row">
+              <button class="btn btn-secondary" type="button" data-back>Back</button>
+              <button class="btn btn-accent" type="button" id="generate-btn">Extract applicable requirements</button>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <!-- STEP 3: EXECUTIVE AUDIT WORKPAPER REPORT -->
-      <div id="wizardStep3" class="hidden space-y-6">
-        
-        <!-- REPORT ACTION BAR -->
-        <div class="flex flex-wrap justify-between items-center gap-3 no-print bg-slate-950 p-4 rounded-xl border border-slate-800">
-          <div>
-            <h2 class="text-sm font-bold text-slate-200">Audit Workpaper Ready</h2>
-            <p class="text-[11px] text-slate-400">Save as PDF or print directly for your audit file.</p>
-          </div>
-          <div class="flex space-x-2">
-            <button onclick="window.print()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-4 py-2 rounded-lg transition shadow-md">
-              🖨️ Print / Save as PDF
-            </button>
-            <button onclick="exportWorkivaJSON()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-2 rounded-lg border border-slate-700">
-              📥 Export Workiva
-            </button>
-            <button onclick="exportServiceNowJSON()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-2 rounded-lg border border-slate-700">
-              📥 Export ServiceNow
-            </button>
-          </div>
-        </div>
+    <section data-view="results" class="hidden">
+      <div id="results-mount"></div>
+    </section>
 
-        <!-- PRINTABLE AUDIT WORKPAPER CONTENT -->
-        <div id="printableWorkpaper" class="space-y-6 card-print bg-slate-950 p-6 rounded-xl border border-slate-800">
-          
-          <!-- WORKPAPER HEADER -->
-          <div class="border-b border-slate-800 pb-4 flex justify-between items-start">
-            <div>
-              <span class="text-[10px] text-cyan-400 font-mono uppercase tracking-widest block">Enterprise AI Risk Workpaper</span>
-              <h2 id="reportSysName" class="text-xl font-bold text-slate-100">Customer Support AI Assistant</h2>
-              <p id="reportBizUnit" class="text-xs text-slate-400">Owner: Retail Banking Operations</p>
-            </div>
-            <div class="text-right">
-              <span id="reportDate" class="text-[11px] text-slate-500 block font-mono">Date: 2026-09-30</span>
-              <span class="text-[10px] text-slate-500">Framework: NIST AI RMF / ISO 42001</span>
-            </div>
-          </div>
+    <section data-view="library" class="hidden">
+      <div id="library-mount"></div>
+    </section>
 
-          <!-- EXECUTIVE RISK BADGES -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
-              <span class="text-[10px] text-slate-400 uppercase font-semibold block">EU AI Act Regulatory Classification</span>
-              <span id="reportEUBadge" class="text-sm font-bold text-amber-400 block mt-1">High-Risk AI System (Annex III)</span>
-              <span class="text-[11px] text-slate-500 mt-1 block">Requires mandatory risk assessments, event logging, and human oversight.</span>
-            </div>
+    <section data-view="sources" class="hidden">
+      <div id="sources-mount"></div>
+    </section>
+  </main>
 
-            <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
-              <span class="text-[10px] text-slate-400 uppercase font-semibold block">SR 11-7 Model Risk Management Status</span>
-              <span id="reportMRMBadge" class="text-sm font-bold text-cyan-400 block mt-1">Mandatory Quantitative Model Risk Review</span>
-              <span class="text-[11px] text-slate-500 mt-1 block">Requires independent model validation, inventory registration, and challenger testing.</span>
-            </div>
-          </div>
+  <footer class="app-footer">
+    <p>ABF (Auditor’s Best Friend) · MIT License. Library text from public sources as cited. ISO/IEC 42001 titles only.</p>
+    <p>Not a substitute for Regulation (EU) 2024/1689, NIST AI 100-1, ISO/IEC 42001:2023, or OCC Bulletin 2011-12.</p>
+  </footer>
 
-          <!-- AUDIT CHEAT SHEET: CONTROLS & INTERVIEW QUESTIONS -->
-          <div class="space-y-4">
-            <h3 class="text-sm font-bold text-slate-200 border-b border-slate-800 pb-2">Targeted Audit Controls & Engineering Interview Guide</h3>
-            
-            <div id="controlListContainer" class="space-y-4">
-              <!-- DYNAMICALLY POPULATED AUDIT CHEAT SHEET CARDS -->
-            </div>
-          </div>
-
-        </div>
-
-        <button onclick="goToStep(1)" class="no-print w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium py-3 rounded-xl transition text-sm">
-          🔄 Start New AI Audit Scoping
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <script>
-    let selectedTaxonomy = 'AGENTIC';
-    let currentWorkpaperData = null;
-
-    const CONTROLS_DB = [
-      {
-        id: "ABF-CTL-01",
-        title: "System Prompt Canary Isolation",
-        threat: "Hackers tricking the AI into leaking confidential developer instructions or hidden prompts.",
-        standards: "NIST AI RMF MANAGE 2.4 | ISO 42001 A.8.4 | OWASP LLM07",
-        questionToAsk: "How do you ensure users cannot trick the AI into revealing its private system prompt or secret instructions?",
-        evidenceToRequest: "Screenshot of system-role API settings & execution log showing canary hash isolation.",
-        appliesIf: (tax) => tax !== 'CLASSIC_ML'
-      },
-      {
-        id: "ABF-CTL-02",
-        title: "Indirect Prompt Injection Guardrails",
-        threat: "Malicious text inside company documents overriding the AI's behavior when reading files.",
-        standards: "OWASP LLM01 | NIST AI RMF MEASURE 2.6 | EU AI Act Art. 15",
-        questionToAsk: "How does the AI sanitize text retrieved from external documents before feeding it to the AI model?",
-        evidenceToRequest: "Source code snippet of document sanitization node & test results for adversarial document uploads.",
-        appliesIf: (tax) => tax !== 'CLASSIC_ML'
-      },
-      {
-        id: "ABF-CTL-03",
-        title: "Context Retention & Memory Hygiene",
-        threat: "The AI holding customer PII in memory after the user logs off, violating privacy laws.",
-        standards: "EU AI Act Art. 10 | ISO 42001 A.8.3 | GDPR Art. 5(1)(c)",
-        questionToAsk: "What is the exact Time-To-Live (TTL) setting for deleting user chat history and session memory?",
-        evidenceToRequest: "Configuration code showing automatic memory expiration rules (e.g. Redis TTL setting).",
-        appliesIf: (tax, pii) => pii === true
-      },
-      {
-        id: "ABF-CTL-04",
-        title: "Model Lineage & Weight Verification",
-        threat: "Using untracked or tampered AI model weights that introduce bias or drift.",
-        standards: "SR 11-7 Model Risk Management | ISO 42001 A.8.2",
-        questionToAsk: "How do you verify the SHA-256 digital fingerprint of model weights before deploying to production?",
-        evidenceToRequest: "SHA-256 weight checksum manifest & completed Model Card specification document.",
-        appliesIf: (tax, pii, fin) => fin === true || tax === 'AGENTIC'
-      },
-      {
-        id: "ABF-CTL-05",
-        title: "Continuous Tool-Calling Authorization",
-        threat: "An AI agent taking unpermitted actions (e.g., executing database writes under a user's read-only account).",
-        standards: "NIST AI RMF MANAGE 2.2 | OWASP LLM06 | ISO 27001 A.9.4",
-        questionToAsk: "How do you restrict what tools or database actions the AI agent can execute on behalf of a user?",
-        evidenceToRequest: "Model Context Protocol (MCP) tool permission manifest & user entitlement enforcement log.",
-        appliesIf: (tax) => tax === 'AGENTIC'
-      }
-    ];
-
-    function selectTaxonomy(tax, el) {
-      selectedTaxonomy = tax;
-      document.querySelectorAll('.tax-card').forEach(c => {
-        c.classList.remove('border-cyan-500', 'bg-cyan-950/20');
-        c.classList.add('border-slate-800', 'bg-slate-950');
-      });
-      el.classList.remove('border-slate-800', 'bg-slate-950');
-      el.classList.add('border-cyan-500', 'bg-cyan-950/20');
-    }
-
-    function goToStep(stepNum) {
-      document.getElementById('wizardStep1').classList.add('hidden');
-      document.getElementById('wizardStep2').classList.add('hidden');
-      document.getElementById('wizardStep3').classList.add('hidden');
-      
-      document.getElementById(`wizardStep${stepNum}`).classList.remove('hidden');
-
-      // Update Nav Highlights
-      for(let i=1; i<=3; i++) {
-        const nav = document.getElementById(`navStep${i}`);
-        if(i === stepNum) {
-          nav.className = "p-3 rounded-xl border border-cyan-500 bg-cyan-950/30 text-cyan-300 text-xs font-semibold flex items-center space-x-2";
-        } else {
-          nav.className = "p-3 rounded-xl border border-slate-800 bg-slate-900/40 text-slate-500 text-xs font-semibold flex items-center space-x-2";
-        }
-      }
-    }
-
-    function generateFinalWorkpaper() {
-      const sysName = document.getElementById('sysName').value || "Unnamed AI System";
-      const bizUnit = document.getElementById('bizUnit').value || "Unassigned Operations";
-      const processPII = document.getElementById('processPII').checked;
-      const financialImpact = document.getElementById('financialImpact').checked;
-
-      document.getElementById('reportSysName').innerText = sysName;
-      document.getElementById('reportBizUnit').innerText = `Owner: ${bizUnit}`;
-      document.getElementById('reportDate').innerText = `Date: ${new Date().toISOString().split('T')[0]}`;
-
-      // Classification
-      let euTier = "Minimal Risk AI System";
-      if (financialImpact || processPII || selectedTaxonomy === 'AGENTIC') {
-        euTier = "High-Risk AI System (Annex III)";
-      }
-
-      let mrmStatus = "Exempt from SR 11-7 Review";
-      if (financialImpact) {
-        mrmStatus = "Mandatory Quantitative Model Risk Review";
-      } else if (selectedTaxonomy === 'AGENTIC' || selectedTaxonomy === 'RAG') {
-        mrmStatus = "Advisory AI/ML Risk Review";
-      }
-
-      document.getElementById('reportEUBadge').innerText = euTier;
-      document.getElementById('reportMRMBadge').innerText = mrmStatus;
-
-      // Controls Cheat Sheet Generation
-      const container = document.getElementById('controlListContainer');
-      container.innerHTML = "";
-
-      const activeControls = CONTROLS_DB.filter(c => c.appliesIf(selectedTaxonomy, processPII, financialImpact));
-
-      activeControls.forEach(ctrl => {
-        const card = document.createElement('div');
-        card.className = "bg-slate-900/80 p-4 rounded-xl border border-slate-800 space-y-2 card-print";
-        card.innerHTML = `
-          <div class="flex justify-between items-start">
-            <h4 class="text-xs font-bold text-cyan-400">${ctrl.id}: ${ctrl.title}</h4>
-            <span class="text-[10px] text-slate-500 font-mono">${ctrl.standards}</span>
-          </div>
-          <p class="text-[11px] text-slate-400"><strong>Risk Vector:</strong> ${ctrl.threat}</p>
-          <div class="bg-slate-950 p-3 rounded-lg border border-slate-800/80 space-y-2 text-xs">
-            <p class="text-slate-200"><strong>💬 Exact Question to Ask Engineering:</strong> "${ctrl.questionToAsk}"</p>
-            <p class="text-slate-300"><strong>📄 Mandatory Evidence to Request:</strong> ${ctrl.evidenceToRequest}</p>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-
-      currentWorkpaperData = { sysName, bizUnit, euTier, mrmStatus, activeControls };
-      goToStep(3);
-    }
-
-    function exportWorkivaJSON() {
-      if(!currentWorkpaperData) return;
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentWorkpaperData, null, 2));
-      const a = document.createElement('a');
-      a.href = dataStr;
-      a.download = `workiva_audit_workpaper_${Date.now()}.json`;
-      a.click();
-    }
-
-    function exportServiceNowJSON() {
-      if(!currentWorkpaperData) return;
-      const payload = {
-        sn_compliance_policy: `AI Audit Policy — ${currentWorkpaperData.sysName}`,
-        risk_tier: currentWorkpaperData.euTier,
-        controls: currentWorkpaperData.activeControls.map(c => ({ id: c.id, title: c.title }))
-      };
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload, null, 2));
-      const a = document.createElement('a');
-      a.href = dataStr;
-      a.download = `servicenow_grc_${Date.now()}.json`;
-      a.click();
-    }
-  </script>
+  <script src="assets/engine.js"></script>
+  <script src="assets/app.js"></script>
 </body>
 </html>

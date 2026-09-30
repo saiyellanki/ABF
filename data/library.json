@@ -1,0 +1,3534 @@
+{
+  "version": "2.0.0",
+  "disclaimer": "ABF is an audit workbench. Screening conclusions are indicative and cite the rule applied. They are not legal advice, a conformity assessment, or a certification decision. ISO/IEC 42001 control bodies are titles only; obtain the standard for authentic text. Where ABF authors a procedure or evidence list, it is labeled as such.",
+  "sources": [
+    {
+      "id": "NIST-AI-RMF-1.0",
+      "name": "NIST AI Risk Management Framework 1.0",
+      "document": "NIST AI 100-1",
+      "date": "January 2023",
+      "url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "playbook_url": "https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook",
+      "license_note": "U.S. government work; public domain. AI RMF is voluntary and use-case agnostic."
+    },
+    {
+      "id": "EU-AI-ACT-2024-1689",
+      "name": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)",
+      "date": "2024",
+      "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "annex_iii_url": "https://ai-act-service-desk.ec.europa.eu/en/ai-act/annex-3",
+      "license_note": "EU legislative text is public. Application dates are staggered (Art. 113)."
+    },
+    {
+      "id": "ISO-IEC-42001-2023",
+      "name": "ISO/IEC 42001:2023 — AI management system",
+      "date": "2023",
+      "url": "https://www.iso.org/standard/81230.html",
+      "license_note": "Control titles only. Official 'shall' statements are copyright ISO and are not reproduced. Use the purchased standard (and Annex B guidance) for implementation and certification."
+    },
+    {
+      "id": "SR-11-7",
+      "name": "SR 11-7 / OCC Bulletin 2011-12 — Supervisory Guidance on Model Risk Management",
+      "date": "April 4, 2011",
+      "url": "https://www.occ.gov/news-issuances/bulletins/2011/bulletin-2011-12.html",
+      "license_note": "U.S. federal supervisory guidance. Applies to banking organizations supervised by the OCC, Federal Reserve, and FDIC; not automatically to every AI system."
+    },
+    {
+      "id": "OWASP-LLM-2025",
+      "name": "OWASP Top 10 for Large Language Model Applications 2025",
+      "date": "2025",
+      "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      "license_note": "OWASP materials are typically CC BY-SA. Entries are threat categories, not regulatory controls."
+    },
+    {
+      "id": "NIST-AI-600-1",
+      "name": "NIST AI 600-1 — Generative AI Profile",
+      "date": "July 2024",
+      "url": "https://doi.org/10.6028/NIST.AI.600-1",
+      "license_note": "U.S. government work. Profile is voluntary. Lists 12 GAI risks and suggested actions mapped to AI RMF subcategories."
+    }
+  ],
+  "obligations": [
+    {
+      "id": "NIST-GOVERN-1.1",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 1, GOVERN 1.1",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "GOVERN 1.1",
+      "function": "GOVERN",
+      "category": "GOVERN 1",
+      "title": "Legal and regulatory requirements involving AI are understood, managed, and documented.",
+      "official_text": "Legal and regulatory requirements involving AI are understood, managed, and documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "governance_baseline"
+      ],
+      "crosswalk": [
+        "EU-ART-6",
+        "EU-ART-16",
+        "ISO-A.2.2"
+      ],
+      "procedure": {
+        "id": "PROC-GOVERN-1.1",
+        "title": "Legal and regulatory inventory for the in-scope AI system",
+        "target_roles": [
+          "AI governance lead",
+          "Legal / compliance",
+          "CISO"
+        ],
+        "inquiry": "Walk me through the inventory of laws, regulations, and internal policies you have mapped to this system, including who owns updates when the intended purpose changes.",
+        "observe": "Inspect the mapping register (or equivalent) for this system. Confirm it names concrete instruments (e.g., EU AI Act articles, SR 11-7 if a bank model, privacy law) rather than a generic 'AI policy' bullet. Check last-review date against a material change (new use case, new model provider, new geography).",
+        "evidence": [
+          "AI system legal/regulatory mapping register with owners and review dates",
+          "Intended-purpose statement used as the mapping input",
+          "Change-management ticket showing the mapping was revisited after a material change"
+        ],
+        "test": "Select the in-scope system. Agree intended purpose with the owner. Independently list candidate instruments from the ABF screening. Compare to the auditee's register and document gaps. Do not treat an uncited 'AI ethics policy' as coverage of a named article.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "NIST-GOVERN-1.2",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 1, GOVERN 1.2",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "GOVERN 1.2",
+      "function": "GOVERN",
+      "category": "GOVERN 1",
+      "title": "The characteristics of trustworthy AI are integrated into organizational policies, processes, procedures, and practices.",
+      "official_text": "The characteristics of trustworthy AI are integrated into organizational policies, processes, procedures, and practices.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "governance_baseline"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GOVERN-1.3",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 1, GOVERN 1.3",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "GOVERN 1.3",
+      "function": "GOVERN",
+      "category": "GOVERN 1",
+      "title": "Processes, procedures, and practices are in place to determine the needed level of risk management activities based on the organization's risk tolerance.",
+      "official_text": "Processes, procedures, and practices are in place to determine the needed level of risk management activities based on the organization's risk tolerance.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "governance_baseline"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GOVERN-1.4",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 1, GOVERN 1.4",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "GOVERN 1.4",
+      "function": "GOVERN",
+      "category": "GOVERN 1",
+      "title": "The risk management process and its outcomes are established through transparent policies, procedures, and other controls based on organizational risk priorities.",
+      "official_text": "The risk management process and its outcomes are established through transparent policies, procedures, and other controls based on organizational risk priorities.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "governance_baseline"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GOVERN-1.5",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 1, GOVERN 1.5",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "GOVERN 1.5",
+      "function": "GOVERN",
+      "category": "GOVERN 1",
+      "title": "Ongoing monitoring and periodic review of the risk management process and its outcomes are planned and organizational roles and responsibilities clearly defined, including determining the frequency of periodic review.",
+      "official_text": "Ongoing monitoring and periodic review of the risk management process and its outcomes are planned and organizational roles and responsibilities clearly defined, including determining the frequency of periodic review.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "governance_baseline"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GOVERN-1.6",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 1, GOVERN 1.6",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "GOVERN 1.6",
+      "function": "GOVERN",
+      "category": "GOVERN 1",
+      "title": "Mechanisms are in place to inventory AI systems and are resourced according to organizational risk priorities.",
+      "official_text": "Mechanisms are in place to inventory AI systems and are resourced according to organizational risk priorities.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "governance_baseline",
+        "inventory"
+      ],
+      "crosswalk": [
+        "ISO-A.4.2",
+        "US-SR117-GOV"
+      ],
+      "procedure": {
+        "id": "PROC-GOVERN-1.6",
+        "title": "AI system inventory completeness",
+        "target_roles": [
+          "AI inventory owner",
+          "Enterprise architecture",
+          "Model risk (if bank)"
+        ],
+        "inquiry": "How do new LLM apps, copilots, and vendor embeddings enter the AI inventory, and what is excluded by policy?",
+        "observe": "Compare the official inventory to shadow sources: SaaS spend, API keys, vector databases, and MLflow/model-registry entries. Look for unregistered RAG or agent prototypes in production paths.",
+        "evidence": [
+          "Current AI / model inventory extract with owner, intended purpose, and risk tier",
+          "Procedure for adding, changing, and decommissioning inventory records",
+          "Reconciliation sample against cloud billing or API-key inventory"
+        ],
+        "test": "Sample five production AI uses from a non-inventory source; trace each to an inventory record or document an exception.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "NIST-GOVERN-1.7",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 1, GOVERN 1.7",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "GOVERN 1.7",
+      "function": "GOVERN",
+      "category": "GOVERN 1",
+      "title": "Processes and procedures are in place for decommissioning and phasing out AI systems safely and in a manner that does not increase risks or decrease the organization's trustworthiness.",
+      "official_text": "Processes and procedures are in place for decommissioning and phasing out AI systems safely and in a manner that does not increase risks or decrease the organization's trustworthiness.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "governance_baseline"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GOVERN-2.1",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 1, GOVERN 2.1",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "GOVERN 2.1",
+      "function": "GOVERN",
+      "category": "GOVERN 2",
+      "title": "Roles and responsibilities and lines of communication related to mapping, measuring, and managing AI risks are documented and are clear to individuals and teams throughout the organization.",
+      "official_text": "Roles and responsibilities and lines of communication related to mapping, measuring, and managing AI risks are documented and are clear to individuals and teams throughout the organization.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "governance_baseline"
+      ],
+      "crosswalk": [
+        "ISO-A.3.2",
+        "EU-ART-26"
+      ]
+    },
+    {
+      "id": "NIST-GOVERN-2.2",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 1, GOVERN 2.2",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "GOVERN 2.2",
+      "function": "GOVERN",
+      "category": "GOVERN 2",
+      "title": "The organization's personnel and partners receive AI risk management training to enable them to perform their duties and responsibilities consistent with related policies, procedures, and agreements.",
+      "official_text": "The organization's personnel and partners receive AI risk management training to enable them to perform their duties and responsibilities consistent with related policies, procedures, and agreements.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "governance_baseline"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GOVERN-2.3",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 1, GOVERN 2.3",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "GOVERN 2.3",
+      "function": "GOVERN",
+      "category": "GOVERN 2",
+      "title": "Executive leadership of the organization takes responsibility for decisions about risks associated with AI system development and deployment.",
+      "official_text": "Executive leadership of the organization takes responsibility for decisions about risks associated with AI system development and deployment.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "governance_baseline"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GOVERN-3.1",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 1, GOVERN 3.1",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "GOVERN 3.1",
+      "function": "GOVERN",
+      "category": "GOVERN 3",
+      "title": "Decision-making related to mapping, measuring, and managing AI risks throughout the lifecycle is informed by a diverse team (e.g., diversity of demographics, disciplines, experience, expertise, and backgrounds).",
+      "official_text": "Decision-making related to mapping, measuring, and managing AI risks throughout the lifecycle is informed by a diverse team (e.g., diversity of demographics, disciplines, experience, expertise, and backgrounds).",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "governance_baseline"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GOVERN-3.2",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 1, GOVERN 3.2",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "GOVERN 3.2",
+      "function": "GOVERN",
+      "category": "GOVERN 3",
+      "title": "Policies and procedures are in place to define and differentiate roles and responsibilities for human-AI configurations and oversight of AI systems.",
+      "official_text": "Policies and procedures are in place to define and differentiate roles and responsibilities for human-AI configurations and oversight of AI systems.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "governance_baseline",
+        "human_oversight"
+      ],
+      "crosswalk": [
+        "EU-ART-14",
+        "ISO-A.9.2"
+      ],
+      "procedure": {
+        "id": "PROC-GOVERN-3.2",
+        "title": "Human-AI configuration and oversight roles",
+        "target_roles": [
+          "Product owner",
+          "Operations lead",
+          "Model owner"
+        ],
+        "inquiry": "Who is allowed to accept, override, or halt this system's output, and what competence is required of that person?",
+        "observe": "Review RACI / job descriptions for oversight. In a live walkthrough, ask the operator to show the override or stop path. If none exists, document residual automation-bias risk.",
+        "evidence": [
+          "Documented human-oversight procedure (roles, training, escalation)",
+          "Screenshot or demo of override / stop control in the production UI or API",
+          "Training or competency records for persons assigned oversight"
+        ],
+        "test": "Trace one production decision path from model output to human action. Confirm the assigned person can interrupt the system.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "NIST-GOVERN-4.1",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 1, GOVERN 4.1",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "GOVERN 4.1",
+      "function": "GOVERN",
+      "category": "GOVERN 4",
+      "title": "Organizational policies and practices are in place to foster a critical thinking and safety-first mindset in the design, development, deployment, and uses of AI systems to minimize potential negative impacts.",
+      "official_text": "Organizational policies and practices are in place to foster a critical thinking and safety-first mindset in the design, development, deployment, and uses of AI systems to minimize potential negative impacts.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "governance_baseline"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GOVERN-4.2",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 1, GOVERN 4.2",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "GOVERN 4.2",
+      "function": "GOVERN",
+      "category": "GOVERN 4",
+      "title": "Organizational teams document the risks and potential impacts of the AI technology they design, develop, deploy, evaluate, and use, and they communicate about the impacts more broadly.",
+      "official_text": "Organizational teams document the risks and potential impacts of the AI technology they design, develop, deploy, evaluate, and use, and they communicate about the impacts more broadly.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "governance_baseline"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GOVERN-4.3",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 1, GOVERN 4.3",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "GOVERN 4.3",
+      "function": "GOVERN",
+      "category": "GOVERN 4",
+      "title": "Organizational practices are in place to enable AI testing, identification of incidents, and information sharing.",
+      "official_text": "Organizational practices are in place to enable AI testing, identification of incidents, and information sharing.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "governance_baseline"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GOVERN-5.1",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 1, GOVERN 5.1",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "GOVERN 5.1",
+      "function": "GOVERN",
+      "category": "GOVERN 5",
+      "title": "Organizational policies and practices are in place to collect, consider, prioritize, and integrate feedback from those external to the team that developed or deployed the AI system regarding the potential individual and societal impacts related to AI risks.",
+      "official_text": "Organizational policies and practices are in place to collect, consider, prioritize, and integrate feedback from those external to the team that developed or deployed the AI system regarding the potential individual and societal impacts related to AI risks.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "governance_baseline"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GOVERN-5.2",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 1, GOVERN 5.2",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "GOVERN 5.2",
+      "function": "GOVERN",
+      "category": "GOVERN 5",
+      "title": "Mechanisms are established to enable the team that developed or deployed AI systems to regularly incorporate adjudicated feedback from relevant AI actors into system design and implementation.",
+      "official_text": "Mechanisms are established to enable the team that developed or deployed AI systems to regularly incorporate adjudicated feedback from relevant AI actors into system design and implementation.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "governance_baseline"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GOVERN-6.1",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 1, GOVERN 6.1",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "GOVERN 6.1",
+      "function": "GOVERN",
+      "category": "GOVERN 6",
+      "title": "Policies and procedures are in place that address AI risks associated with third-party entities, including risks of infringement of a third-party's intellectual property or other rights.",
+      "official_text": "Policies and procedures are in place that address AI risks associated with third-party entities, including risks of infringement of a third-party's intellectual property or other rights.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "governance_baseline",
+        "third_party"
+      ],
+      "crosswalk": [
+        "ISO-A.10.3",
+        "OWASP-LLM03"
+      ],
+      "procedure": {
+        "id": "PROC-GOVERN-6.1",
+        "title": "Third-party model, data, and tool due diligence",
+        "target_roles": [
+          "Procurement / vendor risk",
+          "Security architecture",
+          "Legal"
+        ],
+        "inquiry": "What residual rights does the vendor have over prompts, embeddings, and logs, and how was that verified in the contract and DPA?",
+        "observe": "Read the enterprise agreement and data-processing terms for training-use, sub-processors, residency, and audit rights. Confirm the running environment matches the contracted tier (e.g., enterprise vs consumer API).",
+        "evidence": [
+          "Executed enterprise agreement / DPA with model or vector-DB vendor",
+          "Vendor due-diligence file (SOC 2, ISO 27001, model card, data-use representations)",
+          "Configuration evidence that production traffic uses the contracted endpoint/tier"
+        ],
+        "test": "For the production endpoint, compare contract, key/tenant configuration, and a sample request log.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "NIST-GOVERN-6.2",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 1, GOVERN 6.2",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "GOVERN 6.2",
+      "function": "GOVERN",
+      "category": "GOVERN 6",
+      "title": "Contingency processes are in place to handle failures or incidents in third-party data or AI systems deemed to be high-risk.",
+      "official_text": "Contingency processes are in place to handle failures or incidents in third-party data or AI systems deemed to be high-risk.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "governance_baseline",
+        "third_party"
+      ],
+      "crosswalk": [
+        "ISO-A.10.2",
+        "NIST-MANAGE-3.1"
+      ]
+    },
+    {
+      "id": "NIST-MAP-1.1",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 2, MAP 1.1",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MAP 1.1",
+      "function": "MAP",
+      "category": "MAP 1",
+      "title": "Intended purposes, potentially beneficial uses, context-specific laws, norms and expectations, and prospective settings in which the AI system will be deployed are understood and documented.",
+      "official_text": "Intended purposes, potentially beneficial uses, context-specific laws, norms and expectations, and prospective settings in which the AI system will be deployed are understood and documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": [
+        "EU-ART-11",
+        "EU-ANNEX-IV",
+        "ISO-A.9.4"
+      ],
+      "procedure": {
+        "id": "PROC-MAP-1.1",
+        "title": "Intended purpose and deployment context",
+        "target_roles": [
+          "Product owner",
+          "AI engineer",
+          "Risk"
+        ],
+        "inquiry": "State the intended purpose in one sentence, the users, the forbidden uses, and the jurisdictions of deployment.",
+        "observe": "Compare marketing copy, system prompts, and production routing rules to the documented intended purpose. Flag scope creep.",
+        "evidence": [
+          "Intended-purpose / use-case document (feeds EU Annex IV if high-risk)",
+          "User personas and out-of-scope uses",
+          "Deployment topology (regions, tenants, connected tools)"
+        ],
+        "test": "Reconcile intended purpose to actual prompts, tools, and data sources in a live architecture walkthrough.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "NIST-MAP-1.2",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 2, MAP 1.2",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MAP 1.2",
+      "function": "MAP",
+      "category": "MAP 1",
+      "title": "Interdisciplinary AI actors, competencies, skills, and capacities for establishing context reflect demographic diversity and broad domain and user experience expertise, and their participation is documented. Opportunities for interdisciplinary collaboration are prioritized.",
+      "official_text": "Interdisciplinary AI actors, competencies, skills, and capacities for establishing context reflect demographic diversity and broad domain and user experience expertise, and their participation is documented. Opportunities for interdisciplinary collaboration are prioritized.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MAP-1.3",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 2, MAP 1.3",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MAP 1.3",
+      "function": "MAP",
+      "category": "MAP 1",
+      "title": "The organization's mission and relevant goals for AI technology are understood and documented.",
+      "official_text": "The organization's mission and relevant goals for AI technology are understood and documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MAP-1.4",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 2, MAP 1.4",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MAP 1.4",
+      "function": "MAP",
+      "category": "MAP 1",
+      "title": "The business value or context of business use has been clearly defined or – in the case of assessing existing AI systems – re-evaluated.",
+      "official_text": "The business value or context of business use has been clearly defined or – in the case of assessing existing AI systems – re-evaluated.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MAP-1.5",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 2, MAP 1.5",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MAP 1.5",
+      "function": "MAP",
+      "category": "MAP 1",
+      "title": "Organizational risk tolerances are determined and documented.",
+      "official_text": "Organizational risk tolerances are determined and documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MAP-1.6",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 2, MAP 1.6",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MAP 1.6",
+      "function": "MAP",
+      "category": "MAP 1",
+      "title": "System requirements (e.g., “the system shall respect the privacy of its users”) are elicited from and understood by relevant AI actors. Design decisions take socio-technical implications into account to address AI risks.",
+      "official_text": "System requirements (e.g., “the system shall respect the privacy of its users”) are elicited from and understood by relevant AI actors. Design decisions take socio-technical implications into account to address AI risks.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MAP-2.1",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 2, MAP 2.1",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MAP 2.1",
+      "function": "MAP",
+      "category": "MAP 2",
+      "title": "The specific tasks and methods used to implement the tasks that the AI system will support are defined (e.g., classifiers, generative models, recommenders).",
+      "official_text": "The specific tasks and methods used to implement the tasks that the AI system will support are defined (e.g., classifiers, generative models, recommenders).",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": [
+        "ISO-A.6.2.2"
+      ],
+      "procedure": {
+        "id": "PROC-MAP-2.1",
+        "title": "Task and method characterization",
+        "target_roles": [
+          "Lead AI/ML engineer"
+        ],
+        "inquiry": "Which tasks are classification, generation, retrieval, ranking, or tool-calling, and which model or component performs each?",
+        "observe": "Walk the runtime graph (orchestrator, retriever, tools). Identify where untrusted content enters the prompt.",
+        "evidence": [
+          "Architecture diagram of the production path",
+          "Model and component inventory (base model, fine-tunes, retrievers, tools)",
+          "Description of human vs automated task split"
+        ],
+        "test": "From a production trace, label each hop as retrieve / generate / tool / human. Confirm it matches documentation.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "NIST-MAP-2.2",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 2, MAP 2.2",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MAP 2.2",
+      "function": "MAP",
+      "category": "MAP 2",
+      "title": "Information about the AI system's knowledge limits and how system output may be utilized and overseen by humans is documented. Documentation provides sufficient information to assist relevant AI actors when making decisions and taking subsequent actions.",
+      "official_text": "Information about the AI system's knowledge limits and how system output may be utilized and overseen by humans is documented. Documentation provides sufficient information to assist relevant AI actors when making decisions and taking subsequent actions.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific",
+        "human_oversight"
+      ],
+      "crosswalk": [
+        "EU-ART-13",
+        "EU-ART-14"
+      ]
+    },
+    {
+      "id": "NIST-MAP-2.3",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 2, MAP 2.3",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MAP 2.3",
+      "function": "MAP",
+      "category": "MAP 2",
+      "title": "Scientific integrity and TEVV considerations are identified and documented, including those related to experimental design, data collection and selection (e.g., availability, representativeness, suitability), system trustworthiness, and construct validation.",
+      "official_text": "Scientific integrity and TEVV considerations are identified and documented, including those related to experimental design, data collection and selection (e.g., availability, representativeness, suitability), system trustworthiness, and construct validation.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific",
+        "tevv"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MAP-3.1",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 2, MAP 3.1",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MAP 3.1",
+      "function": "MAP",
+      "category": "MAP 3",
+      "title": "Potential benefits of intended AI system functionality and performance are examined and documented.",
+      "official_text": "Potential benefits of intended AI system functionality and performance are examined and documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MAP-3.2",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 2, MAP 3.2",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MAP 3.2",
+      "function": "MAP",
+      "category": "MAP 3",
+      "title": "Potential costs, including non-monetary costs, which result from expected or realized AI errors or system functionality and trustworthiness – as connected to organizational risk tolerance – are examined and documented.",
+      "official_text": "Potential costs, including non-monetary costs, which result from expected or realized AI errors or system functionality and trustworthiness – as connected to organizational risk tolerance – are examined and documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MAP-3.3",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 2, MAP 3.3",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MAP 3.3",
+      "function": "MAP",
+      "category": "MAP 3",
+      "title": "Targeted application scope is specified and documented based on the system's capability, established context, and AI system categorization.",
+      "official_text": "Targeted application scope is specified and documented based on the system's capability, established context, and AI system categorization.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MAP-3.4",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 2, MAP 3.4",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MAP 3.4",
+      "function": "MAP",
+      "category": "MAP 3",
+      "title": "Processes for operator and practitioner proficiency with AI system performance and trustworthiness – and relevant technical standards and certifications – are defined, assessed, and documented.",
+      "official_text": "Processes for operator and practitioner proficiency with AI system performance and trustworthiness – and relevant technical standards and certifications – are defined, assessed, and documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MAP-3.5",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 2, MAP 3.5",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MAP 3.5",
+      "function": "MAP",
+      "category": "MAP 3",
+      "title": "Processes for human oversight are defined, assessed, and documented in accordance with organizational policies from the govern function.",
+      "official_text": "Processes for human oversight are defined, assessed, and documented in accordance with organizational policies from the govern function.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific",
+        "human_oversight"
+      ],
+      "crosswalk": [
+        "EU-ART-14",
+        "ISO-A.9.2"
+      ],
+      "procedure": {
+        "id": "PROC-MAP-3.5",
+        "title": "Documented human-oversight process",
+        "target_roles": [
+          "Operations",
+          "AI product owner"
+        ],
+        "inquiry": "In what cases must a human review output before it takes effect, and how is that enforced technically rather than by policy alone?",
+        "observe": "Attempt (or review a recorded test of) a path that should require approval. Confirm the tool cannot complete without the approval token.",
+        "evidence": [
+          "Oversight design (human-in-the-loop vs human-on-the-loop vs human-in-command)",
+          "Enforcement mechanism (workflow, allowlist, dual control)",
+          "Exception log for skipped reviews"
+        ],
+        "test": "Select one high-impact action. Verify a control prevents unattended execution.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "NIST-MAP-4.1",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 2, MAP 4.1",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MAP 4.1",
+      "function": "MAP",
+      "category": "MAP 4",
+      "title": "Approaches for mapping AI technology and legal risks of its components – including the use of third-party data or software – are in place, followed, and documented, as are risks of infringement of a third party's intellectual property or other rights.",
+      "official_text": "Approaches for mapping AI technology and legal risks of its components – including the use of third-party data or software – are in place, followed, and documented, as are risks of infringement of a third party's intellectual property or other rights.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific",
+        "third_party"
+      ],
+      "crosswalk": [
+        "ISO-A.10.3",
+        "NIST-GOVERN-6.1"
+      ]
+    },
+    {
+      "id": "NIST-MAP-4.2",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 2, MAP 4.2",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MAP 4.2",
+      "function": "MAP",
+      "category": "MAP 4",
+      "title": "Internal risk controls for components of the AI system, including third-party AI technologies, are identified and documented.",
+      "official_text": "Internal risk controls for components of the AI system, including third-party AI technologies, are identified and documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific",
+        "third_party"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MAP-5.1",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 2, MAP 5.1",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MAP 5.1",
+      "function": "MAP",
+      "category": "MAP 5",
+      "title": "Likelihood and magnitude of each identified impact (both potentially beneficial and harmful) based on expected use, past uses of AI systems in similar contexts, public incident reports, feedback from those external to the team that developed or deployed the AI system, or other data are identified and documented.",
+      "official_text": "Likelihood and magnitude of each identified impact (both potentially beneficial and harmful) based on expected use, past uses of AI systems in similar contexts, public incident reports, feedback from those external to the team that developed or deployed the AI system, or other data are identified and documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MAP-5.2",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 2, MAP 5.2",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MAP 5.2",
+      "function": "MAP",
+      "category": "MAP 5",
+      "title": "Practices and personnel for supporting regular engagement with relevant AI actors and integrating feedback about positive, negative, and unanticipated impacts are in place and documented.",
+      "official_text": "Practices and personnel for supporting regular engagement with relevant AI actors and integrating feedback about positive, negative, and unanticipated impacts are in place and documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MEASURE-1.1",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 1.1",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 1.1",
+      "function": "MEASURE",
+      "category": "MEASURE 1",
+      "title": "Approaches and metrics for measurement of AI risks enumerated during the map function are selected for implementation starting with the most significant AI risks. The risks or trustworthiness characteristics that will not – or cannot – be measured are properly documented.",
+      "official_text": "Approaches and metrics for measurement of AI risks enumerated during the map function are selected for implementation starting with the most significant AI risks. The risks or trustworthiness characteristics that will not – or cannot – be measured are properly documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MEASURE-1.2",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 1.2",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 1.2",
+      "function": "MEASURE",
+      "category": "MEASURE 1",
+      "title": "Appropriateness of AI metrics and effectiveness of existing controls are regularly assessed and updated, including reports of errors and potential impacts on affected communities.",
+      "official_text": "Appropriateness of AI metrics and effectiveness of existing controls are regularly assessed and updated, including reports of errors and potential impacts on affected communities.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MEASURE-1.3",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 1.3",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 1.3",
+      "function": "MEASURE",
+      "category": "MEASURE 1",
+      "title": "Internal experts who did not serve as front-line developers for the system and/or independent assessors are involved in regular assessments and updates. Domain experts, users, AI actors external to the team that developed or deployed the AI system, and affected communities are consulted in support of assessments as necessary per organizational risk tolerance.",
+      "official_text": "Internal experts who did not serve as front-line developers for the system and/or independent assessors are involved in regular assessments and updates. Domain experts, users, AI actors external to the team that developed or deployed the AI system, and affected communities are consulted in support of assessments as necessary per organizational risk tolerance.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MEASURE-2.1",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 2.1",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 2.1",
+      "function": "MEASURE",
+      "category": "MEASURE 2",
+      "title": "Test sets, metrics, and details about the tools used during TEVV are documented.",
+      "official_text": "Test sets, metrics, and details about the tools used during TEVV are documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MEASURE-2.2",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 2.2",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 2.2",
+      "function": "MEASURE",
+      "category": "MEASURE 2",
+      "title": "Evaluations involving human subjects meet applicable requirements (including human subject protection) and are representative of the relevant population.",
+      "official_text": "Evaluations involving human subjects meet applicable requirements (including human subject protection) and are representative of the relevant population.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MEASURE-2.3",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 2.3",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 2.3",
+      "function": "MEASURE",
+      "category": "MEASURE 2",
+      "title": "AI system performance or assurance criteria are measured qualitatively or quantitatively and demonstrated for conditions similar to deployment setting(s). Measures are documented.",
+      "official_text": "AI system performance or assurance criteria are measured qualitatively or quantitatively and demonstrated for conditions similar to deployment setting(s). Measures are documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MEASURE-2.4",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 2.4",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 2.4",
+      "function": "MEASURE",
+      "category": "MEASURE 2",
+      "title": "The functionality and behavior of the AI system and its components – as identified in the map function – are monitored when in production.",
+      "official_text": "The functionality and behavior of the AI system and its components – as identified in the map function – are monitored when in production.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MEASURE-2.5",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 2.5",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 2.5",
+      "function": "MEASURE",
+      "category": "MEASURE 2",
+      "title": "The AI system to be deployed is demonstrated to be valid and reliable. Limitations of the generalizability beyond the conditions under which the technology was developed are documented.",
+      "official_text": "The AI system to be deployed is demonstrated to be valid and reliable. Limitations of the generalizability beyond the conditions under which the technology was developed are documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific",
+        "tevv"
+      ],
+      "crosswalk": [
+        "EU-ART-15",
+        "ISO-A.6.2.4",
+        "US-SR117-VAL"
+      ],
+      "procedure": {
+        "id": "PROC-MEASURE-2.5",
+        "title": "Validity, reliability, and documented limits",
+        "target_roles": [
+          "Model developer",
+          "Independent validator / QA"
+        ],
+        "inquiry": "What held-out or production-like evaluation shows the system is valid for the stated purpose, and where do you tell operators it does not generalize?",
+        "observe": "Review eval sets for leakage from training. For generative systems, inspect groundedness / hallucination metrics against the retrieval corpus, not only chatbot preference scores.",
+        "evidence": [
+          "Evaluation report with datasets, metrics, dates, and owners",
+          "Documented known failure modes and operating limits",
+          "Sign-off that residual error is within risk tolerance"
+        ],
+        "test": "Re-perform or inspect a sample of evaluation cases. Confirm metrics match the intended purpose (e.g., credit default vs BLEU).",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "NIST-MEASURE-2.6",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 2.6",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 2.6",
+      "function": "MEASURE",
+      "category": "MEASURE 2",
+      "title": "The AI system is evaluated regularly for safety risks – as identified in the map function. The AI system to be deployed is demonstrated to be safe, its residual negative risk does not exceed the risk tolerance, and it can fail safely, particularly if made to operate beyond its knowledge limits.",
+      "official_text": "The AI system is evaluated regularly for safety risks – as identified in the map function. The AI system to be deployed is demonstrated to be safe, its residual negative risk does not exceed the risk tolerance, and it can fail safely, particularly if made to operate beyond its knowledge limits.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific",
+        "tevv"
+      ],
+      "crosswalk": [
+        "EU-ART-15",
+        "ISO-A.6.2.4"
+      ]
+    },
+    {
+      "id": "NIST-MEASURE-2.7",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 2.7",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 2.7",
+      "function": "MEASURE",
+      "category": "MEASURE 2",
+      "title": "AI system security and resilience – as identified in the map function – are evaluated and documented.",
+      "official_text": "AI system security and resilience – as identified in the map function – are evaluated and documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific",
+        "security"
+      ],
+      "crosswalk": [
+        "EU-ART-15",
+        "OWASP-LLM01",
+        "NIST-GAI-SECURITY"
+      ],
+      "procedure": {
+        "id": "PROC-MEASURE-2.7",
+        "title": "Security and resilience evaluation",
+        "target_roles": [
+          "Application security",
+          "AI engineer"
+        ],
+        "inquiry": "Which adversarial tests (prompt injection, data exfiltration, tool abuse) were run against this build, and who triaged the results?",
+        "observe": "Review red-team or eval-harness output. Confirm findings were closed or risk-accepted with an owner.",
+        "evidence": [
+          "Security test plan and results for the current production version",
+          "Guardrail / filter configuration (input and output)",
+          "Incident or bug tickets from failed adversarial tests"
+        ],
+        "test": "Map tests to OWASP LLM Top 10 2025 entries that apply to this architecture. Identify untested categories.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "NIST-MEASURE-2.8",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 2.8",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 2.8",
+      "function": "MEASURE",
+      "category": "MEASURE 2",
+      "title": "Risks associated with transparency and accountability – as identified in the map function – are examined and documented.",
+      "official_text": "Risks associated with transparency and accountability – as identified in the map function – are examined and documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": [
+        "EU-ART-13",
+        "EU-ART-50"
+      ]
+    },
+    {
+      "id": "NIST-MEASURE-2.9",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 2.9",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 2.9",
+      "function": "MEASURE",
+      "category": "MEASURE 2",
+      "title": "The AI model is explained, validated, and documented, and AI system output is interpreted within its context – as identified in the map function – to inform responsible use and governance.",
+      "official_text": "The AI model is explained, validated, and documented, and AI system output is interpreted within its context – as identified in the map function – to inform responsible use and governance.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": [
+        "EU-ART-13",
+        "US-SR117-VAL"
+      ]
+    },
+    {
+      "id": "NIST-MEASURE-2.10",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 2.10",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 2.10",
+      "function": "MEASURE",
+      "category": "MEASURE 2",
+      "title": "Privacy risk of the AI system – as identified in the map function – is examined and documented.",
+      "official_text": "Privacy risk of the AI system – as identified in the map function – is examined and documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific",
+        "personal_data"
+      ],
+      "crosswalk": [
+        "EU-ART-10",
+        "ISO-A.7.2",
+        "NIST-GAI-PRIVACY"
+      ],
+      "procedure": {
+        "id": "PROC-MEASURE-2.10",
+        "title": "Privacy risk of prompts, logs, and retrieval",
+        "target_roles": [
+          "Privacy engineer",
+          "Data protection officer",
+          "Platform engineer"
+        ],
+        "inquiry": "Where do prompts, completions, embeddings, and evaluator traces live, for how long, and who can replay them?",
+        "observe": "Inspect log stores, vendor training-use settings, and retention jobs. Confirm production is not on a consumer endpoint that reserves training rights.",
+        "evidence": [
+          "Data-flow diagram for prompts, embeddings, logs, and fine-tune sets",
+          "Retention / TTL configuration and access-control lists",
+          "Vendor data-use setting evidence (enterprise opt-out / no-training)"
+        ],
+        "test": "Trace one customer utterance from UI to storage. Confirm deletion/TTL and access on a sample record.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "NIST-MEASURE-2.11",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 2.11",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 2.11",
+      "function": "MEASURE",
+      "category": "MEASURE 2",
+      "title": "Fairness and bias – as identified in the map function – are evaluated and results are documented.",
+      "official_text": "Fairness and bias – as identified in the map function – are evaluated and results are documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific",
+        "fairness"
+      ],
+      "crosswalk": [
+        "EU-ART-10",
+        "ISO-A.5.4"
+      ],
+      "procedure": {
+        "id": "PROC-MEASURE-2.11",
+        "title": "Fairness and bias evaluation",
+        "target_roles": [
+          "Model risk / data science",
+          "Legal (discrimination)",
+          "Product"
+        ],
+        "inquiry": "For this intended purpose, which groups did you test, which metrics, and what threshold would block release?",
+        "observe": "Do not accept a generic 'we use a fair model' statement. Require slice metrics or a documented reason that quantitative fairness measurement is not applicable, per MEASURE 1.1 (unmeasured characteristics must be documented).",
+        "evidence": [
+          "Bias / fairness test report tied to the intended purpose",
+          "Definition of protected or sensitive attributes used (or legal basis for not processing them)",
+          "Mitigations and residual-risk acceptance"
+        ],
+        "test": "If Annex III employment, credit, or education applies, treat this as a key control. Sample whether production monitoring continues slice metrics.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "NIST-MEASURE-2.12",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 2.12",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 2.12",
+      "function": "MEASURE",
+      "category": "MEASURE 2",
+      "title": "Environmental impact and sustainability of AI model training and management activities – as identified in the map function – are assessed and documented.",
+      "official_text": "Environmental impact and sustainability of AI model training and management activities – as identified in the map function – are assessed and documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MEASURE-2.13",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 2.13",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 2.13",
+      "function": "MEASURE",
+      "category": "MEASURE 2",
+      "title": "Effectiveness of the employed TEVV metrics and processes in the measure function are evaluated and documented.",
+      "official_text": "Effectiveness of the employed TEVV metrics and processes in the measure function are evaluated and documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MEASURE-3.1",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 3.1",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 3.1",
+      "function": "MEASURE",
+      "category": "MEASURE 3",
+      "title": "Approaches, personnel, and documentation are in place to regularly identify and track existing, unanticipated, and emergent AI risks based on factors such as intended and actual performance in deployed contexts.",
+      "official_text": "Approaches, personnel, and documentation are in place to regularly identify and track existing, unanticipated, and emergent AI risks based on factors such as intended and actual performance in deployed contexts.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MEASURE-3.2",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 3.2",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 3.2",
+      "function": "MEASURE",
+      "category": "MEASURE 3",
+      "title": "Risk tracking approaches are considered for settings where AI risks are difficult to assess using currently available measurement techniques or where metrics are not yet available.",
+      "official_text": "Risk tracking approaches are considered for settings where AI risks are difficult to assess using currently available measurement techniques or where metrics are not yet available.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MEASURE-3.3",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 3.3",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 3.3",
+      "function": "MEASURE",
+      "category": "MEASURE 3",
+      "title": "Feedback processes for end users and impacted communities to report problems and appeal system outcomes are established and integrated into AI system evaluation metrics.",
+      "official_text": "Feedback processes for end users and impacted communities to report problems and appeal system outcomes are established and integrated into AI system evaluation metrics.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MEASURE-4.1",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 4.1",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 4.1",
+      "function": "MEASURE",
+      "category": "MEASURE 4",
+      "title": "Measurement approaches for identifying AI risks are connected to deployment context(s) and informed through consultation with domain experts and other end users. Approaches are documented.",
+      "official_text": "Measurement approaches for identifying AI risks are connected to deployment context(s) and informed through consultation with domain experts and other end users. Approaches are documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MEASURE-4.2",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 4.2",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 4.2",
+      "function": "MEASURE",
+      "category": "MEASURE 4",
+      "title": "Measurement results regarding AI system trustworthiness in deployment context(s) and across the AI lifecycle are informed by input from domain experts and relevant AI actors to validate whether the system is performing consistently as intended. Results are documented.",
+      "official_text": "Measurement results regarding AI system trustworthiness in deployment context(s) and across the AI lifecycle are informed by input from domain experts and relevant AI actors to validate whether the system is performing consistently as intended. Results are documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MEASURE-4.3",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 3, MEASURE 4.3",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MEASURE 4.3",
+      "function": "MEASURE",
+      "category": "MEASURE 4",
+      "title": "Measurable performance improvements or declines based on consultations with relevant AI actors, including affected communities, and field data about context-relevant risks and trustworthiness characteristics are identified and documented.",
+      "official_text": "Measurable performance improvements or declines based on consultations with relevant AI actors, including affected communities, and field data about context-relevant risks and trustworthiness characteristics are identified and documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MANAGE-1.1",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 4, MANAGE 1.1",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MANAGE 1.1",
+      "function": "MANAGE",
+      "category": "MANAGE 1",
+      "title": "A determination is made as to whether the AI system achieves its intended purposes and stated objectives and whether its development or deployment should proceed.",
+      "official_text": "A determination is made as to whether the AI system achieves its intended purposes and stated objectives and whether its development or deployment should proceed.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MANAGE-1.2",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 4, MANAGE 1.2",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MANAGE 1.2",
+      "function": "MANAGE",
+      "category": "MANAGE 1",
+      "title": "Treatment of documented AI risks is prioritized based on impact, likelihood, and available resources or methods.",
+      "official_text": "Treatment of documented AI risks is prioritized based on impact, likelihood, and available resources or methods.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MANAGE-1.3",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 4, MANAGE 1.3",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MANAGE 1.3",
+      "function": "MANAGE",
+      "category": "MANAGE 1",
+      "title": "Responses to the AI risks deemed high priority, as identified by the map function, are developed, planned, and documented. Risk response options can include mitigating, transferring, avoiding, or accepting.",
+      "official_text": "Responses to the AI risks deemed high priority, as identified by the map function, are developed, planned, and documented. Risk response options can include mitigating, transferring, avoiding, or accepting.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MANAGE-1.4",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 4, MANAGE 1.4",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MANAGE 1.4",
+      "function": "MANAGE",
+      "category": "MANAGE 1",
+      "title": "Negative residual risks (defined as the sum of all unmitigated risks) to both downstream acquirers of AI systems and end users are documented.",
+      "official_text": "Negative residual risks (defined as the sum of all unmitigated risks) to both downstream acquirers of AI systems and end users are documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MANAGE-2.1",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 4, MANAGE 2.1",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MANAGE 2.1",
+      "function": "MANAGE",
+      "category": "MANAGE 2",
+      "title": "Resources required to manage AI risks are taken into account – along with viable non-AI alternative systems, approaches, or methods – to reduce the magnitude or likelihood of potential impacts.",
+      "official_text": "Resources required to manage AI risks are taken into account – along with viable non-AI alternative systems, approaches, or methods – to reduce the magnitude or likelihood of potential impacts.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MANAGE-2.2",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 4, MANAGE 2.2",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MANAGE 2.2",
+      "function": "MANAGE",
+      "category": "MANAGE 2",
+      "title": "Mechanisms are in place and applied to sustain the value of deployed AI systems.",
+      "official_text": "Mechanisms are in place and applied to sustain the value of deployed AI systems.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MANAGE-2.3",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 4, MANAGE 2.3",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MANAGE 2.3",
+      "function": "MANAGE",
+      "category": "MANAGE 2",
+      "title": "Procedures are followed to respond to and recover from a previously unknown risk when it is identified.",
+      "official_text": "Procedures are followed to respond to and recover from a previously unknown risk when it is identified.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific",
+        "security"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MANAGE-2.4",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 4, MANAGE 2.4",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MANAGE 2.4",
+      "function": "MANAGE",
+      "category": "MANAGE 2",
+      "title": "Mechanisms are in place and applied, and responsibilities are assigned and understood, to supersede, disengage, or deactivate AI systems that demonstrate performance or outcomes inconsistent with intended use.",
+      "official_text": "Mechanisms are in place and applied, and responsibilities are assigned and understood, to supersede, disengage, or deactivate AI systems that demonstrate performance or outcomes inconsistent with intended use.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific",
+        "human_oversight",
+        "security"
+      ],
+      "crosswalk": [
+        "EU-ART-14",
+        "ISO-A.9.2"
+      ],
+      "procedure": {
+        "id": "PROC-MANAGE-2.4",
+        "title": "Disengage, override, and deactivation",
+        "target_roles": [
+          "SRE / platform",
+          "Security operations",
+          "Product owner"
+        ],
+        "inquiry": "Show me how you disable this system or a single tenant within an agreed time, including revoke of model API keys and agent tool credentials.",
+        "observe": "Table-top or live kill-switch. Confirm it covers orchestrator, tools, and scheduled jobs, not only the chat UI.",
+        "evidence": [
+          "Documented deactivation / rollback procedure with RTO",
+          "Evidence of a tested disable (ticket, game-day, or change record)",
+          "Key and credential revocation path (IdP, API gateway)"
+        ],
+        "test": "Inspect last test of deactivation. If never tested, raise as a design gap against MANAGE 2.4 and, if high-risk, EU Art. 14 stop-button language.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "NIST-MANAGE-3.1",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 4, MANAGE 3.1",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MANAGE 3.1",
+      "function": "MANAGE",
+      "category": "MANAGE 3",
+      "title": "AI risks and benefits from third-party resources are regularly monitored, and risk controls are applied and documented.",
+      "official_text": "AI risks and benefits from third-party resources are regularly monitored, and risk controls are applied and documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific",
+        "third_party"
+      ],
+      "crosswalk": [
+        "ISO-A.10.3",
+        "NIST-GOVERN-6.1"
+      ]
+    },
+    {
+      "id": "NIST-MANAGE-3.2",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 4, MANAGE 3.2",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MANAGE 3.2",
+      "function": "MANAGE",
+      "category": "MANAGE 3",
+      "title": "Pre-trained models which are used for development are monitored as part of AI system regular monitoring and maintenance.",
+      "official_text": "Pre-trained models which are used for development are monitored as part of AI system regular monitoring and maintenance.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific",
+        "third_party"
+      ],
+      "crosswalk": [
+        "OWASP-LLM03",
+        "NIST-GAI-VALUECHAIN"
+      ],
+      "procedure": {
+        "id": "PROC-MANAGE-3.2",
+        "title": "Monitoring of pre-trained and vendor models",
+        "target_roles": [
+          "MLOps",
+          "Vendor manager"
+        ],
+        "inquiry": "How do you learn that the vendor changed the model, the system prompt, or the safety layer under your deployment?",
+        "observe": "Check for pinned model versions vs floating 'latest'. Review changelog subscription and regression evals on vendor updates.",
+        "evidence": [
+          "Pinned model version IDs in production config",
+          "Vendor change-notification process",
+          "Regression evaluation after the last vendor update"
+        ],
+        "test": "Compare production model identifier to the last approved version in change control.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "NIST-MANAGE-4.1",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 4, MANAGE 4.1",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MANAGE 4.1",
+      "function": "MANAGE",
+      "category": "MANAGE 4",
+      "title": "Post-deployment AI system monitoring plans are implemented, including mechanisms for capturing and evaluating input from users and other relevant AI actors, appeal and override, decommissioning, incident response, recovery, and change management.",
+      "official_text": "Post-deployment AI system monitoring plans are implemented, including mechanisms for capturing and evaluating input from users and other relevant AI actors, appeal and override, decommissioning, incident response, recovery, and change management.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": [
+        "EU-ART-12",
+        "EU-ART-26",
+        "ISO-A.6.2.6"
+      ],
+      "procedure": {
+        "id": "PROC-MANAGE-4.1",
+        "title": "Post-deployment monitoring, appeals, and incidents",
+        "target_roles": [
+          "Operations",
+          "Risk",
+          "Customer support"
+        ],
+        "inquiry": "Where do users contest an output, and how does that feed evaluation and incident response?",
+        "observe": "Follow one complaint or override into the monitoring backlog. Confirm drift, toxicity, and tool-error metrics exist for genAI, not only classic ML PSI.",
+        "evidence": [
+          "Post-deployment monitoring plan and dashboards",
+          "User appeal / feedback channel",
+          "Incident response playbook covering AI-specific events"
+        ],
+        "test": "Sample two production incidents or complaints and trace to a logged event and a documented response.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "NIST-MANAGE-4.2",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 4, MANAGE 4.2",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MANAGE 4.2",
+      "function": "MANAGE",
+      "category": "MANAGE 4",
+      "title": "Measurable activities for continual improvements are integrated into AI system updates and include regular engagement with interested parties, including relevant AI actors.",
+      "official_text": "Measurable activities for continual improvements are integrated into AI system updates and include regular engagement with interested parties, including relevant AI actors.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-MANAGE-4.3",
+      "framework": "NIST AI RMF 1.0",
+      "citation": "NIST AI 100-1, Table 4, MANAGE 4.3",
+      "source_url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "kind": "outcome",
+      "code": "MANAGE 4.3",
+      "function": "MANAGE",
+      "category": "MANAGE 4",
+      "title": "Incidents and errors are communicated to relevant AI actors, including affected communities. Processes for tracking, responding to, and recovering from incidents and errors are followed and documented.",
+      "official_text": "Incidents and errors are communicated to relevant AI actors, including affected communities. Processes for tracking, responding to, and recovering from incidents and errors are followed and documented.",
+      "tags": [
+        "nist",
+        "always_if_using_rmf",
+        "system_specific"
+      ],
+      "crosswalk": [
+        "ISO-A.8.4"
+      ]
+    },
+    {
+      "id": "EU-ART-5",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Article 5",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "kind": "legal_obligation",
+      "code": "Article 5",
+      "function": "EU AI Act",
+      "category": "Article 5",
+      "title": "Prohibited AI practices",
+      "official_text": "Places on the Union market, puts into service, or uses of listed practices are prohibited. The list includes (among others) subliminal/manipulative techniques causing or reasonably likely to cause significant harm; exploiting vulnerabilities of age, disability or socio-economic circumstances; social scoring causing detrimental treatment; untargeted scraping of facial images to build/expand facial-recognition databases; emotion recognition in the workplace or educational institutions (with limited medical/safety exceptions); biometric categorisation inferring certain sensitive attributes; assessing criminality solely on profiling or personality traits; and real-time remote biometric identification in publicly accessible spaces for law enforcement except narrowly defined cases. Consult the authentic Article 5 text for exceptions and conditions.",
+      "tags": [
+        "eu_prohibited",
+        "eu"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "EU-ART-6",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Article 6",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "kind": "legal_obligation",
+      "code": "Article 6",
+      "function": "EU AI Act",
+      "category": "Article 6",
+      "title": "Classification rules for high-risk AI systems",
+      "official_text": "An AI system is high-risk if (Art. 6(1)) it is a safety component of a product, or is itself a product, covered by Union harmonisation legislation in Annex I and is required to undergo a third-party conformity assessment under that legislation; or (Art. 6(2)) it is listed in Annex III. Art. 6(3) provides that Annex III systems are not high-risk if they do not pose a significant risk of harm to health, safety or fundamental rights, including by not materially influencing the outcome of decision making. The exception does not apply if the system profiles natural persons. Providers that conclude an Annex III system is not high-risk must document that assessment before placing the system on the market or putting it into service.",
+      "tags": [
+        "eu_classification",
+        "eu"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "EU-ART-9",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Article 9",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "kind": "legal_obligation",
+      "code": "Article 9",
+      "function": "EU AI Act",
+      "category": "Article 9",
+      "title": "Risk management system",
+      "official_text": "A continuous, iterative risk-management system shall be established, implemented, documented and maintained throughout the lifecycle of a high-risk AI system: identification and analysis of known and reasonably foreseeable risks; estimation and evaluation of risks arising from intended purpose and reasonably foreseeable misuse; evaluation of risks from post-market monitoring data; and adoption of appropriate and targeted risk-management measures.",
+      "tags": [
+        "eu_high_risk",
+        "eu_provider",
+        "eu"
+      ],
+      "crosswalk": [
+        "NIST-MANAGE-1.2",
+        "ISO-A.5.2"
+      ],
+      "procedure": {
+        "id": "PROC-EU-ART-9",
+        "title": "High-risk risk-management system (Art. 9)",
+        "target_roles": [
+          "Provider quality / risk",
+          "AI product owner"
+        ],
+        "inquiry": "Show the living Art. 9 file for this system: foreseeable misuse, residual risk, and measures tied to post-market data.",
+        "observe": "The file should be iterative (versions), not a one-time DPIA copy-paste. Check reasonably foreseeable misuse (jailbreak, over-reliance, wrong population).",
+        "evidence": [
+          "Risk-management system documentation for the system lifecycle",
+          "Register of known and reasonably foreseeable risks",
+          "Link from post-market monitoring data into risk updates"
+        ],
+        "test": "Pick one residual risk. Trace identification → measure → owner → residual rating → monitoring metric.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "EU-ART-10",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Article 10",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "kind": "legal_obligation",
+      "code": "Article 10",
+      "function": "EU AI Act",
+      "category": "Article 10",
+      "title": "Data and data governance",
+      "official_text": "Training, validation and testing data sets shall be subject to appropriate data-governance and management practices. Data sets shall be relevant, sufficiently representative, and to the best extent possible, free of errors and complete in view of the intended purpose. Appropriate statistical properties, examination of possible biases, and relevant data-protection measures shall be considered.",
+      "tags": [
+        "eu_high_risk",
+        "eu_provider",
+        "personal_data",
+        "fairness",
+        "eu"
+      ],
+      "crosswalk": [
+        "NIST-MEASURE-2.10",
+        "NIST-MEASURE-2.11",
+        "ISO-A.7.4"
+      ],
+      "procedure": {
+        "id": "PROC-EU-ART-10",
+        "title": "Training, validation, and test data governance (Art. 10)",
+        "target_roles": [
+          "Data science lead",
+          "Data protection"
+        ],
+        "inquiry": "For each training/validation/test set: origin, representativeness versus intended purpose, known gaps, and bias examination.",
+        "observe": "If the team only uses a third-party foundation model, Art. 10 still matters for fine-tunes, RAG corpora, and evaluator sets the provider controls.",
+        "evidence": [
+          "Dataset inventory with intended-purpose alignment notes",
+          "Bias/quality examination records",
+          "Data-protection measures for personal data in those sets"
+        ],
+        "test": "Sample one dataset. Confirm documented provenance and a quality/bias check dated before the last training or index build.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "EU-ART-11",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Article 11",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "kind": "legal_obligation",
+      "code": "Article 11",
+      "function": "EU AI Act",
+      "category": "Article 11",
+      "title": "Technical documentation",
+      "official_text": "Technical documentation shall be drawn up before the high-risk AI system is placed on the market or put into service and shall be kept up to date. It shall demonstrate compliance with Section 2 and provide national competent authorities and notified bodies with the information necessary to assess that compliance. Minimum content is set out in Annex IV.",
+      "tags": [
+        "eu_high_risk",
+        "eu_provider",
+        "eu"
+      ],
+      "crosswalk": [
+        "ISO-A.6.2.7",
+        "NIST-MAP-1.1"
+      ],
+      "procedure": {
+        "id": "PROC-EU-ART-11",
+        "title": "Annex IV technical documentation",
+        "target_roles": [
+          "Provider compliance",
+          "Engineering documentation owner"
+        ],
+        "inquiry": "Walk through the Annex IV pack: intended purpose, design specifications, data, TEVV, cybersecurity, and human oversight.",
+        "observe": "Confirm the pack matches the running system version (commit, model ID, prompt version).",
+        "evidence": [
+          "Technical documentation mapped to Annex IV headings",
+          "Version identifier that matches production",
+          "Instructions for use provided to deployers (Art. 13)"
+        ],
+        "test": "Tick Annex IV headings against the file. Record missing headings as exceptions. Do not invent content.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "EU-ART-12",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Article 12",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "kind": "legal_obligation",
+      "code": "Article 12",
+      "function": "EU AI Act",
+      "category": "Article 12",
+      "title": "Record-keeping",
+      "official_text": "High-risk AI systems shall technically allow for the automatic recording of events (logs) over the lifetime of the system. Logging shall enable identification of situations that may result in the system presenting a risk or in a substantial modification, and shall facilitate post-market monitoring and operation monitoring.",
+      "tags": [
+        "eu_high_risk",
+        "eu_provider",
+        "eu"
+      ],
+      "crosswalk": [
+        "ISO-A.6.2.8",
+        "NIST-MEASURE-2.4"
+      ]
+    },
+    {
+      "id": "EU-ART-13",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Article 13",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "kind": "legal_obligation",
+      "code": "Article 13",
+      "function": "EU AI Act",
+      "category": "Article 13",
+      "title": "Transparency and provision of information to deployers",
+      "official_text": "High-risk AI systems shall be designed so that their operation is sufficiently transparent to enable deployers to interpret a system's output and use it appropriately. Instructions for use shall include identity and contact of the provider, characteristics, capabilities and limitations of performance, human-oversight measures, and the computational and hardware resources needed.",
+      "tags": [
+        "eu_high_risk",
+        "eu_provider",
+        "eu"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "EU-ART-14",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Article 14",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "kind": "legal_obligation",
+      "code": "Article 14",
+      "function": "EU AI Act",
+      "category": "Article 14",
+      "title": "Human oversight",
+      "official_text": "High-risk AI systems shall be designed and developed so that they can be effectively overseen by natural persons during the period in which they are in use. Oversight measures shall enable the persons to whom human oversight is assigned to understand the capacities and limitations, remain aware of automation bias, correctly interpret output, decide not to use or to disregard/override the output, and intervene or interrupt the system through a stop button or similar procedure.",
+      "tags": [
+        "eu_high_risk",
+        "eu_provider",
+        "human_oversight",
+        "eu"
+      ],
+      "crosswalk": [
+        "NIST-GOVERN-3.2",
+        "NIST-MAP-3.5",
+        "NIST-MANAGE-2.4"
+      ],
+      "procedure": {
+        "id": "PROC-EU-ART-14",
+        "title": "Human oversight operability (Art. 14)",
+        "target_roles": [
+          "Deployer operations",
+          "Provider UX/safety"
+        ],
+        "inquiry": "How does an overseer interpret output, ignore it, and interrupt the system? How do you reduce automation bias?",
+        "observe": "Live demo of stop/override. Check whether the UI discloses confidence/limits or presents output as authoritative fact.",
+        "evidence": [
+          "Oversight design in technical documentation",
+          "Deployer instructions describing oversight measures",
+          "Training material on automation bias for overseers"
+        ],
+        "test": "Execute (or review recording of) interrupt and override. Confirm logs capture the human action (Art. 12).",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "EU-ART-15",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Article 15",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "kind": "legal_obligation",
+      "code": "Article 15",
+      "function": "EU AI Act",
+      "category": "Article 15",
+      "title": "Accuracy, robustness and cybersecurity",
+      "official_text": "High-risk AI systems shall be designed and developed so that they achieve an appropriate level of accuracy, robustness, and cybersecurity, and perform consistently in those respects throughout their lifecycle. Accuracy metrics shall be declared in the instructions for use. Resilience shall address errors, faults, inconsistencies, and attempts by unauthorised third parties to alter use or performance (including data poisoning and adversarial examples).",
+      "tags": [
+        "eu_high_risk",
+        "eu_provider",
+        "security",
+        "tevv",
+        "eu"
+      ],
+      "crosswalk": [
+        "NIST-MEASURE-2.5",
+        "NIST-MEASURE-2.7",
+        "OWASP-LLM01"
+      ],
+      "procedure": {
+        "id": "PROC-EU-ART-15",
+        "title": "Accuracy, robustness, and cybersecurity (Art. 15)",
+        "target_roles": [
+          "ML engineer",
+          "Security"
+        ],
+        "inquiry": "Which accuracy metrics are declared to deployers, and which robustness tests cover data poisoning and adversarial inputs?",
+        "observe": "Instructions for use should declare metrics (Art. 15). Compare declared metrics to actual eval reports.",
+        "evidence": [
+          "Declared accuracy metrics in instructions for use",
+          "Robustness / adversarial evaluation results",
+          "Cybersecurity measures for the AI pipeline (incl. poisoning and adversarial examples)"
+        ],
+        "test": "Match declared metrics to the latest evaluation. Inspect one adversarial test case and its disposition.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "EU-ART-16",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Article 16",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "kind": "legal_obligation",
+      "code": "Article 16",
+      "function": "EU AI Act",
+      "category": "Article 16",
+      "title": "Obligations of providers of high-risk AI systems",
+      "official_text": "Providers shall ensure conformity with Section 2 requirements; indicate name/trademark and contact; have a quality management system (Art. 17); keep documentation (Art. 18); keep logs when under their control (Art. 19); take corrective actions (Art. 20); cooperate with competent authorities; demonstrate conformity on request; ensure accessibility requirements; and fulfil registration obligations (Art. 49).",
+      "tags": [
+        "eu_high_risk",
+        "eu_provider",
+        "eu"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "EU-ART-17",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Article 17",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "kind": "legal_obligation",
+      "code": "Article 17",
+      "function": "EU AI Act",
+      "category": "Article 17",
+      "title": "Quality management system",
+      "official_text": "Providers shall put a quality management system in place that documents strategy for regulatory compliance, design/examination/verification/validation procedures, data-management procedures, the risk-management system, post-market monitoring, serious-incident reporting, communication with authorities, and resource/accountability arrangements.",
+      "tags": [
+        "eu_high_risk",
+        "eu_provider",
+        "eu"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "EU-ART-26",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Article 26",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "kind": "legal_obligation",
+      "code": "Article 26",
+      "function": "EU AI Act",
+      "category": "Article 26",
+      "title": "Obligations of deployers of high-risk AI systems",
+      "official_text": "Deployers shall take appropriate technical and organisational measures to use the system in accordance with the instructions for use; assign human oversight to persons with necessary competence, training and authority; ensure input data is relevant and sufficiently representative where they exercise control; monitor operation and report risks/serious incidents to the provider and authorities as required; keep logs under their control for a period of at least six months (subject to Union or national law); inform workers' representatives and affected workers; register use where they are public authorities or Union institutions; and inform natural persons subject to the use of certain Annex III systems that they are subject to that use (Art. 26(11)).",
+      "tags": [
+        "eu_high_risk",
+        "eu_deployer",
+        "eu"
+      ],
+      "crosswalk": [
+        "NIST-MANAGE-4.1",
+        "ISO-A.9.2"
+      ],
+      "procedure": {
+        "id": "PROC-EU-ART-26",
+        "title": "Deployer obligations walkthrough (Art. 26)",
+        "target_roles": [
+          "Deployer management",
+          "IT operations",
+          "HR (if workplace use)"
+        ],
+        "inquiry": "Who is assigned oversight, how do you monitor operation against the instructions for use, and where are logs retained (at least six months if under your control)?",
+        "observe": "For workplace systems, check worker information. For credit/insurance/public bodies, check FRIA (Art. 27) separately.",
+        "evidence": [
+          "Record of assigned overseers and their competence",
+          "Operating procedure aligned to provider instructions for use",
+          "Log-retention configuration (≥ 6 months where Art. 26 applies and logs are under deployer control)",
+          "Worker notification evidence if used in the workplace"
+        ],
+        "test": "Sample log retention and one monitoring exception. Confirm reporting path to the provider for serious incidents.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "EU-ART-27",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Article 27",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "kind": "legal_obligation",
+      "code": "Article 27",
+      "function": "EU AI Act",
+      "category": "Article 27",
+      "title": "Fundamental rights impact assessment",
+      "official_text": "Before deploying a high-risk system referred to in Art. 6(2), deployers that are bodies governed by public law, or private entities providing public services, shall perform an assessment of the impact on fundamental rights. The same duty applies to deployers of Annex III point 5(b) and 5(c) systems (creditworthiness of natural persons, and life/health insurance risk assessment and pricing). Annex III point 2 (critical infrastructure) is excluded from this FRIA duty.",
+      "tags": [
+        "eu_high_risk",
+        "eu_deployer",
+        "fria",
+        "eu"
+      ],
+      "crosswalk": [],
+      "procedure": {
+        "id": "PROC-EU-ART-27",
+        "title": "Fundamental rights impact assessment (Art. 27)",
+        "target_roles": [
+          "Deployer public-sector / essential-services owner",
+          "Legal"
+        ],
+        "inquiry": "Was an Art. 27 FRIA required, who performed it, and how did it change deployment conditions?",
+        "observe": "Confirm whether the deployer is a public body, a private provider of public services, or a deployer of Annex III 5(b)/(c). Critical infrastructure (Annex III(2)) is excluded from this FRIA duty.",
+        "evidence": [
+          "FRIA document (or documented determination that Art. 27 does not apply)",
+          "Notification to the market surveillance authority where required",
+          "Mitigations feeding the deployer operating procedure"
+        ],
+        "test": "Check actor type and Annex III paragraph against Art. 27 scope. Do not demand a FRIA from in-scope-excluded deployers.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "EU-ART-50",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Article 50",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "kind": "legal_obligation",
+      "code": "Article 50",
+      "function": "EU AI Act",
+      "category": "Article 50",
+      "title": "Transparency obligations for certain AI systems",
+      "official_text": "Providers shall ensure that AI systems intended to interact directly with natural persons are designed so that the persons concerned are informed that they are interacting with an AI system (unless this is obvious from the point of view of a reasonably well-informed, observant and circumspect person). Providers of AI systems generating synthetic audio, image, video or text content shall ensure the outputs are marked in a machine-readable format and detectable as artificially generated or manipulated. Deployers of emotion-recognition or biometric-categorisation systems shall inform natural persons exposed thereto. Deployers of systems that generate or manipulate image, audio or video content constituting a deep fake shall disclose that the content has been artificially generated or manipulated.",
+      "tags": [
+        "eu_transparency",
+        "genai",
+        "eu"
+      ],
+      "crosswalk": [],
+      "procedure": {
+        "id": "PROC-EU-ART-50",
+        "title": "User-facing AI and synthetic-content disclosure",
+        "target_roles": [
+          "Product",
+          "Communications",
+          "Engineering"
+        ],
+        "inquiry": "How is a person told they are interacting with AI, and how is synthetic media marked in a machine-readable way?",
+        "observe": "Chat UI, email agents, and generated PDFs. Check watermarking/manifests for media, not only a footer disclaimer.",
+        "evidence": [
+          "UI/UX evidence of AI interaction notice",
+          "Technical marking of synthetic content (where Art. 50(2) applies)",
+          "Deep-fake or emotion-recognition disclosure procedure if those systems are in use"
+        ],
+        "test": "Use the system as a new user. Record whether the AI nature is disclosed before reliance on output.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "EU-ART-51",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Article 51",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "kind": "legal_obligation",
+      "code": "Article 51",
+      "function": "EU AI Act",
+      "category": "Article 51",
+      "title": "Classification of GPAI models with systemic risk",
+      "official_text": "A general-purpose AI model is classified as a GPAI model with systemic risk if it has high-impact capabilities evaluated on the basis of appropriate technical tools and methodologies, including indicators and benchmarks. A model is presumed to have high-impact capabilities when the cumulative amount of computation used for its training is greater than 10^25 FLOPs. Providers shall notify the Commission without delay and in any event within two weeks if the threshold is met.",
+      "tags": [
+        "eu_gpai",
+        "eu"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "EU-ART-53",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Article 53",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "kind": "legal_obligation",
+      "code": "Article 53",
+      "function": "EU AI Act",
+      "category": "Article 53",
+      "title": "Obligations for providers of GPAI models",
+      "official_text": "Providers of general-purpose AI models shall draw up and keep up-to-date technical documentation, including the training and testing process and the results of its evaluation; draw up and keep up-to-date information and documentation for downstream providers; put in place a policy to comply with Union copyright law; and publish a sufficiently detailed summary about the content used for training. Certain free and open-source GPAI models that are not systemic-risk models have a reduced set of these obligations.",
+      "tags": [
+        "eu_gpai",
+        "eu"
+      ],
+      "crosswalk": [],
+      "procedure": {
+        "id": "PROC-EU-ART-53",
+        "title": "GPAI provider documentation and training-content summary",
+        "target_roles": [
+          "Foundation-model provider compliance",
+          "Research engineering"
+        ],
+        "inquiry": "Show the Art. 53 technical documentation, downstream-provider information, copyright policy, and public training-content summary.",
+        "observe": "If claiming open-source reduced duties, test whether weights, architecture, and usage information are actually public and whether the model is systemic-risk.",
+        "evidence": [
+          "GPAI technical documentation",
+          "Downstream information pack",
+          "Copyright-compliance policy",
+          "Published training-content summary"
+        ],
+        "test": "Tick Art. 53 items. If systemic-risk indicators exist, continue to Art. 55 procedures.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "EU-ART-55",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Article 55",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "kind": "legal_obligation",
+      "code": "Article 55",
+      "function": "EU AI Act",
+      "category": "Article 55",
+      "title": "Obligations of providers of GPAI models with systemic risk",
+      "official_text": "In addition to Art. 53, providers of GPAI models with systemic risk shall perform model evaluation in accordance with standardised protocols and tools reflecting the state of the art, including conducting and documenting adversarial testing; assess and mitigate possible systemic risks; track, document and report serious incidents and possible corrective measures to the AI Office and national competent authorities without undue delay; and ensure an adequate level of cybersecurity protection for the model and its physical infrastructure.",
+      "tags": [
+        "eu_gpai_systemic",
+        "eu"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "EU-ANNEX-IV",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Annex IV",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "kind": "legal_obligation",
+      "code": "Annex IV",
+      "function": "EU AI Act",
+      "category": "Annex IV",
+      "title": "Technical documentation referred to in Article 11(1)",
+      "official_text": "Annex IV specifies the minimum technical-documentation content for high-risk AI systems, including a general description of the system and intended purpose; a detailed description of the elements and development process (design specifications, design choices, data requirements, training/testing/validation procedures, cybersecurity measures); monitoring, functioning and control; the risk-management system; changes over the lifecycle; a list of harmonised standards applied; the EU declaration of conformity; and a description of the system in operation.",
+      "tags": [
+        "eu_high_risk",
+        "eu_provider",
+        "eu"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "EU-ANNEX-III-1",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Annex III(1)",
+      "source_url": "https://ai-act-service-desk.ec.europa.eu/en/ai-act/annex-3",
+      "kind": "legal_obligation",
+      "code": "Annex III(1)",
+      "function": "EU AI Act",
+      "category": "Annex III(1)",
+      "title": "Biometrics (where permitted)",
+      "official_text": "Remote biometric identification (excluding verification whose sole purpose is to confirm a person is who they claim to be); biometric categorisation according to sensitive or protected attributes; emotion recognition.",
+      "tags": [
+        "eu_annex_iii",
+        "biometrics",
+        "eu"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "EU-ANNEX-III-2",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Annex III(2)",
+      "source_url": "https://ai-act-service-desk.ec.europa.eu/en/ai-act/annex-3",
+      "kind": "legal_obligation",
+      "code": "Annex III(2)",
+      "function": "EU AI Act",
+      "category": "Annex III(2)",
+      "title": "Critical infrastructure",
+      "official_text": "AI systems intended to be used as safety components in the management and operation of critical digital infrastructure, road traffic, or the supply of water, gas, heating or electricity.",
+      "tags": [
+        "eu_annex_iii",
+        "critical_infrastructure",
+        "eu"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "EU-ANNEX-III-3",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Annex III(3)",
+      "source_url": "https://ai-act-service-desk.ec.europa.eu/en/ai-act/annex-3",
+      "kind": "legal_obligation",
+      "code": "Annex III(3)",
+      "function": "EU AI Act",
+      "category": "Annex III(3)",
+      "title": "Education and vocational training",
+      "official_text": "Access/admission/assignment to education; evaluation of learning outcomes; assessing the appropriate level of education; monitoring/detecting prohibited student behaviour during tests.",
+      "tags": [
+        "eu_annex_iii",
+        "education",
+        "fairness",
+        "eu"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "EU-ANNEX-III-4",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Annex III(4)",
+      "source_url": "https://ai-act-service-desk.ec.europa.eu/en/ai-act/annex-3",
+      "kind": "legal_obligation",
+      "code": "Annex III(4)",
+      "function": "EU AI Act",
+      "category": "Annex III(4)",
+      "title": "Employment, workers' management and access to self-employment",
+      "official_text": "Recruitment or selection (targeted job ads, analysing/filtering applications, evaluating candidates); decisions affecting terms of work, promotion or termination; allocating tasks based on behaviour or personal traits; monitoring and evaluating performance.",
+      "tags": [
+        "eu_annex_iii",
+        "employment",
+        "fairness",
+        "eu"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "EU-ANNEX-III-5",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Annex III(5)",
+      "source_url": "https://ai-act-service-desk.ec.europa.eu/en/ai-act/annex-3",
+      "kind": "legal_obligation",
+      "code": "Annex III(5)",
+      "function": "EU AI Act",
+      "category": "Annex III(5)",
+      "title": "Essential private and public services and benefits",
+      "official_text": "Public-authority evaluation of eligibility for essential public assistance benefits and services (including healthcare); creditworthiness/credit scoring of natural persons except fraud detection; life and health insurance risk assessment and pricing; emergency-call classification, dispatch priority, and emergency patient triage.",
+      "tags": [
+        "eu_annex_iii",
+        "credit",
+        "insurance",
+        "public_benefits",
+        "fairness",
+        "eu"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "EU-ANNEX-III-6",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Annex III(6)",
+      "source_url": "https://ai-act-service-desk.ec.europa.eu/en/ai-act/annex-3",
+      "kind": "legal_obligation",
+      "code": "Annex III(6)",
+      "function": "EU AI Act",
+      "category": "Annex III(6)",
+      "title": "Law enforcement (where permitted)",
+      "official_text": "Assessing risk of becoming a crime victim; polygraphs; evaluating reliability of evidence; assessing risk of offending or re-offending (not solely on profiling as defined in Directive (EU) 2016/680); profiling in detection, investigation or prosecution of criminal offences.",
+      "tags": [
+        "eu_annex_iii",
+        "law_enforcement",
+        "eu"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "EU-ANNEX-III-7",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Annex III(7)",
+      "source_url": "https://ai-act-service-desk.ec.europa.eu/en/ai-act/annex-3",
+      "kind": "legal_obligation",
+      "code": "Annex III(7)",
+      "function": "EU AI Act",
+      "category": "Annex III(7)",
+      "title": "Migration, asylum and border control management (where permitted)",
+      "official_text": "Polygraphs; assessing security, irregular-migration, or health risk of a person entering a Member State; assisting examination of asylum, visa or residence applications; detecting, recognising or identifying persons except verification of travel documents.",
+      "tags": [
+        "eu_annex_iii",
+        "migration",
+        "eu"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "EU-ANNEX-III-8",
+      "framework": "EU AI Act (Reg. 2024/1689)",
+      "citation": "Regulation (EU) 2024/1689, Annex III(8)",
+      "source_url": "https://ai-act-service-desk.ec.europa.eu/en/ai-act/annex-3",
+      "kind": "legal_obligation",
+      "code": "Annex III(8)",
+      "function": "EU AI Act",
+      "category": "Annex III(8)",
+      "title": "Administration of justice and democratic processes",
+      "official_text": "Assisting a judicial authority in researching/interpreting facts and the law and applying the law to facts, or similar use in alternative dispute resolution; influencing the outcome of an election or referendum or voting behaviour (excluding administrative/logistical campaign tools to which persons are not directly exposed).",
+      "tags": [
+        "eu_annex_iii",
+        "justice",
+        "eu"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.2.2",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.2.2 AI policy",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.2.2",
+      "function": "AIMS",
+      "category": "A.2 Policies related to AI",
+      "title": "AI policy",
+      "official_text": "Control title only: A.2.2 — AI policy. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims",
+        "governance_baseline"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.2.3",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.2.3 Alignment with other organisational policies",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.2.3",
+      "function": "AIMS",
+      "category": "A.2 Policies related to AI",
+      "title": "Alignment with other organisational policies",
+      "official_text": "Control title only: A.2.3 — Alignment with other organisational policies. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims",
+        "governance_baseline"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.2.4",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.2.4 Review of the AI policy",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.2.4",
+      "function": "AIMS",
+      "category": "A.2 Policies related to AI",
+      "title": "Review of the AI policy",
+      "official_text": "Control title only: A.2.4 — Review of the AI policy. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims",
+        "governance_baseline"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.3.2",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.3.2 AI roles and responsibilities",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.3.2",
+      "function": "AIMS",
+      "category": "A.3 Internal organisation",
+      "title": "AI roles and responsibilities",
+      "official_text": "Control title only: A.3.2 — AI roles and responsibilities. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims",
+        "governance_baseline"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.3.3",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.3.3 Reporting of concerns",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.3.3",
+      "function": "AIMS",
+      "category": "A.3 Internal organisation",
+      "title": "Reporting of concerns",
+      "official_text": "Control title only: A.3.3 — Reporting of concerns. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims",
+        "governance_baseline"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.4.2",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.4.2 Resource documentation",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.4.2",
+      "function": "AIMS",
+      "category": "A.4 Resources for AI systems",
+      "title": "Resource documentation",
+      "official_text": "Control title only: A.4.2 — Resource documentation. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.4.3",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.4.3 Data resources",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.4.3",
+      "function": "AIMS",
+      "category": "A.4 Resources for AI systems",
+      "title": "Data resources",
+      "official_text": "Control title only: A.4.3 — Data resources. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.4.4",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.4.4 Tooling resources",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.4.4",
+      "function": "AIMS",
+      "category": "A.4 Resources for AI systems",
+      "title": "Tooling resources",
+      "official_text": "Control title only: A.4.4 — Tooling resources. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.4.5",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.4.5 System and computing resources",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.4.5",
+      "function": "AIMS",
+      "category": "A.4 Resources for AI systems",
+      "title": "System and computing resources",
+      "official_text": "Control title only: A.4.5 — System and computing resources. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.4.6",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.4.6 Human resources",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.4.6",
+      "function": "AIMS",
+      "category": "A.4 Resources for AI systems",
+      "title": "Human resources",
+      "official_text": "Control title only: A.4.6 — Human resources. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.5.2",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.5.2 AI system impact assessment process",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.5.2",
+      "function": "AIMS",
+      "category": "A.5 Assessing impacts of AI systems",
+      "title": "AI system impact assessment process",
+      "official_text": "Control title only: A.5.2 — AI system impact assessment process. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.5.3",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.5.3 Documentation of AI system impact assessments",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.5.3",
+      "function": "AIMS",
+      "category": "A.5 Assessing impacts of AI systems",
+      "title": "Documentation of AI system impact assessments",
+      "official_text": "Control title only: A.5.3 — Documentation of AI system impact assessments. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.5.4",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.5.4 Assessing AI system impact on individuals or groups of individuals",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.5.4",
+      "function": "AIMS",
+      "category": "A.5 Assessing impacts of AI systems",
+      "title": "Assessing AI system impact on individuals or groups of individuals",
+      "official_text": "Control title only: A.5.4 — Assessing AI system impact on individuals or groups of individuals. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims",
+        "fairness"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.5.5",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.5.5 Assessing societal impacts of AI systems",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.5.5",
+      "function": "AIMS",
+      "category": "A.5 Assessing impacts of AI systems",
+      "title": "Assessing societal impacts of AI systems",
+      "official_text": "Control title only: A.5.5 — Assessing societal impacts of AI systems. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims",
+        "fairness"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.6.1.2",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.6.1.2 Objectives for responsible development of AI system",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.6.1.2",
+      "function": "AIMS",
+      "category": "A.6 AI system life cycle",
+      "title": "Objectives for responsible development of AI system",
+      "official_text": "Control title only: A.6.1.2 — Objectives for responsible development of AI system. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.6.1.3",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.6.1.3 Processes for responsible design and development of AI systems",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.6.1.3",
+      "function": "AIMS",
+      "category": "A.6 AI system life cycle",
+      "title": "Processes for responsible design and development of AI systems",
+      "official_text": "Control title only: A.6.1.3 — Processes for responsible design and development of AI systems. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.6.2.2",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.6.2.2 AI system requirements and specification",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.6.2.2",
+      "function": "AIMS",
+      "category": "A.6 AI system life cycle",
+      "title": "AI system requirements and specification",
+      "official_text": "Control title only: A.6.2.2 — AI system requirements and specification. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.6.2.3",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.6.2.3 Documentation of AI system design and development",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.6.2.3",
+      "function": "AIMS",
+      "category": "A.6 AI system life cycle",
+      "title": "Documentation of AI system design and development",
+      "official_text": "Control title only: A.6.2.3 — Documentation of AI system design and development. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.6.2.4",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.6.2.4 AI system verification and validation",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.6.2.4",
+      "function": "AIMS",
+      "category": "A.6 AI system life cycle",
+      "title": "AI system verification and validation",
+      "official_text": "Control title only: A.6.2.4 — AI system verification and validation. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims",
+        "tevv"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.6.2.5",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.6.2.5 AI system deployment",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.6.2.5",
+      "function": "AIMS",
+      "category": "A.6 AI system life cycle",
+      "title": "AI system deployment",
+      "official_text": "Control title only: A.6.2.5 — AI system deployment. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.6.2.6",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.6.2.6 AI system operation and monitoring",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.6.2.6",
+      "function": "AIMS",
+      "category": "A.6 AI system life cycle",
+      "title": "AI system operation and monitoring",
+      "official_text": "Control title only: A.6.2.6 — AI system operation and monitoring. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims",
+        "tevv"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.6.2.7",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.6.2.7 AI system technical documentation",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.6.2.7",
+      "function": "AIMS",
+      "category": "A.6 AI system life cycle",
+      "title": "AI system technical documentation",
+      "official_text": "Control title only: A.6.2.7 — AI system technical documentation. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.6.2.8",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.6.2.8 AI system recording of event logs",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.6.2.8",
+      "function": "AIMS",
+      "category": "A.6 AI system life cycle",
+      "title": "AI system recording of event logs",
+      "official_text": "Control title only: A.6.2.8 — AI system recording of event logs. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.7.2",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.7.2 Data for development and enhancement of AI system",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.7.2",
+      "function": "AIMS",
+      "category": "A.7 Data for AI systems",
+      "title": "Data for development and enhancement of AI system",
+      "official_text": "Control title only: A.7.2 — Data for development and enhancement of AI system. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims",
+        "personal_data"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.7.3",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.7.3 Acquisition of data",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.7.3",
+      "function": "AIMS",
+      "category": "A.7 Data for AI systems",
+      "title": "Acquisition of data",
+      "official_text": "Control title only: A.7.3 — Acquisition of data. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims",
+        "personal_data"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.7.4",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.7.4 Quality of data for AI systems",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.7.4",
+      "function": "AIMS",
+      "category": "A.7 Data for AI systems",
+      "title": "Quality of data for AI systems",
+      "official_text": "Control title only: A.7.4 — Quality of data for AI systems. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims",
+        "personal_data"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.7.5",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.7.5 Data provenance",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.7.5",
+      "function": "AIMS",
+      "category": "A.7 Data for AI systems",
+      "title": "Data provenance",
+      "official_text": "Control title only: A.7.5 — Data provenance. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims",
+        "personal_data"
+      ],
+      "crosswalk": [],
+      "procedure": {
+        "id": "PROC-ISO-A.7.5",
+        "title": "Data provenance (ISO/IEC 42001 A.7.5) — title-level procedure",
+        "target_roles": [
+          "Data engineering",
+          "AIMS owner"
+        ],
+        "inquiry": "How do you reconstruct where training, RAG, and evaluation data came from and how they were transformed?",
+        "observe": "Lineage store or equivalent. This procedure tests the public control title; confirm authentic ISO text in the purchased standard.",
+        "evidence": [
+          "Dataset lineage records (source, transformations, versions)",
+          "Link from model version to dataset version"
+        ],
+        "test": "Pick the production model or index. Reconstruct upstream data versions from records alone.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "ISO-A.7.6",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.7.6 Data preparation",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.7.6",
+      "function": "AIMS",
+      "category": "A.7 Data for AI systems",
+      "title": "Data preparation",
+      "official_text": "Control title only: A.7.6 — Data preparation. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims",
+        "personal_data"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.8.2",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.8.2 System documentation and information for users",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.8.2",
+      "function": "AIMS",
+      "category": "A.8 Information for interested parties of AI systems",
+      "title": "System documentation and information for users",
+      "official_text": "Control title only: A.8.2 — System documentation and information for users. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.8.3",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.8.3 External reporting",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.8.3",
+      "function": "AIMS",
+      "category": "A.8 Information for interested parties of AI systems",
+      "title": "External reporting",
+      "official_text": "Control title only: A.8.3 — External reporting. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.8.4",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.8.4 Communication of incidents",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.8.4",
+      "function": "AIMS",
+      "category": "A.8 Information for interested parties of AI systems",
+      "title": "Communication of incidents",
+      "official_text": "Control title only: A.8.4 — Communication of incidents. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.8.5",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.8.5 Information for interested parties",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.8.5",
+      "function": "AIMS",
+      "category": "A.8 Information for interested parties of AI systems",
+      "title": "Information for interested parties",
+      "official_text": "Control title only: A.8.5 — Information for interested parties. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.9.2",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.9.2 Processes for responsible use of AI systems",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.9.2",
+      "function": "AIMS",
+      "category": "A.9 Use of AI systems",
+      "title": "Processes for responsible use of AI systems",
+      "official_text": "Control title only: A.9.2 — Processes for responsible use of AI systems. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims",
+        "human_oversight"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.9.3",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.9.3 Objectives for responsible use of AI system",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.9.3",
+      "function": "AIMS",
+      "category": "A.9 Use of AI systems",
+      "title": "Objectives for responsible use of AI system",
+      "official_text": "Control title only: A.9.3 — Objectives for responsible use of AI system. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.9.4",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.9.4 Intended use of the AI system",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.9.4",
+      "function": "AIMS",
+      "category": "A.9 Use of AI systems",
+      "title": "Intended use of the AI system",
+      "official_text": "Control title only: A.9.4 — Intended use of the AI system. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims",
+        "human_oversight"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.10.2",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.10.2 Allocation of responsibilities",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.10.2",
+      "function": "AIMS",
+      "category": "A.10 Third-party and customer relationships",
+      "title": "Allocation of responsibilities",
+      "official_text": "Control title only: A.10.2 — Allocation of responsibilities. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims",
+        "third_party"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.10.3",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.10.3 Suppliers",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.10.3",
+      "function": "AIMS",
+      "category": "A.10 Third-party and customer relationships",
+      "title": "Suppliers",
+      "official_text": "Control title only: A.10.3 — Suppliers. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims",
+        "third_party"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "ISO-A.10.4",
+      "framework": "ISO/IEC 42001:2023",
+      "citation": "ISO/IEC 42001:2023 Annex A, A.10.4 Customers",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "kind": "control_title",
+      "code": "A.10.4",
+      "function": "AIMS",
+      "category": "A.10 Third-party and customer relationships",
+      "title": "Customers",
+      "official_text": "Control title only: A.10.4 — Customers. Obtain ISO/IEC 42001:2023 for the authentic control text and Annex B guidance.",
+      "tags": [
+        "iso42001",
+        "aims",
+        "third_party"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "US-SR117-DEV",
+      "framework": "SR 11-7 / OCC 2011-12",
+      "citation": "Board/OCC/FDIC SR 11-7 (OCC Bulletin 2011-12), Model development, implementation, and use",
+      "source_url": "https://www.occ.gov/news-issuances/bulletins/2011/bulletin-2011-12.html",
+      "kind": "supervisory_expectation",
+      "code": "SR 11-7 Development",
+      "function": "MRM",
+      "category": "Model risk management",
+      "title": "Model development, implementation, and use",
+      "official_text": "Supervisory guidance expects sound development, implementation, and use of models: clear statement of purpose, conceptually sound design, appropriate data, testing before implementation, and use consistent with the model's design and documented limitations.",
+      "tags": [
+        "sr117"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "US-SR117-VAL",
+      "framework": "SR 11-7 / OCC 2011-12",
+      "citation": "Board/OCC/FDIC SR 11-7 (OCC Bulletin 2011-12), Model validation (independent)",
+      "source_url": "https://www.occ.gov/news-issuances/bulletins/2011/bulletin-2011-12.html",
+      "kind": "supervisory_expectation",
+      "code": "SR 11-7 Validation",
+      "function": "MRM",
+      "category": "Model risk management",
+      "title": "Model validation (independent)",
+      "official_text": "Effective validation is performed by staff with appropriate incentives, competence, and influence, independent of model development and use. Core elements include evaluation of conceptual soundness (including developmental evidence), ongoing monitoring (including process verification and benchmarking), and outcomes analysis (including back-testing).",
+      "tags": [
+        "sr117",
+        "tevv"
+      ],
+      "crosswalk": [],
+      "procedure": {
+        "id": "PROC-SR117-VAL",
+        "title": "Independent model validation (SR 11-7)",
+        "target_roles": [
+          "Independent model validation",
+          "Model owner",
+          "Internal audit"
+        ],
+        "inquiry": "Who validated this model, how are they independent, and which of conceptual soundness, ongoing monitoring, and outcomes analysis are complete?",
+        "observe": "Validator reporting line, last validation memo, limitations, and restrictions on use. Chatbots used as decision models still need a documented model definition.",
+        "evidence": [
+          "Independent validation report",
+          "Model inventory record and risk tier",
+          "Ongoing monitoring / back-testing evidence",
+          "Limitations and restrictions communicated to users"
+        ],
+        "test": "Confirm independence (no developer self-validation as the sole line). Tick the three validation elements from SR 11-7.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "US-SR117-GOV",
+      "framework": "SR 11-7 / OCC 2011-12",
+      "citation": "Board/OCC/FDIC SR 11-7 (OCC Bulletin 2011-12), Governance, policies, and controls",
+      "source_url": "https://www.occ.gov/news-issuances/bulletins/2011/bulletin-2011-12.html",
+      "kind": "supervisory_expectation",
+      "code": "SR 11-7 Governance",
+      "function": "MRM",
+      "category": "Model risk management",
+      "title": "Governance, policies, and controls",
+      "official_text": "Board and senior management are expected to establish a model risk management framework with policies, procedures, staff, and controls commensurate with the bank's risk exposures, including a comprehensive model inventory, documentation standards, and limits on use of models that are deficient or that have identified weaknesses.",
+      "tags": [
+        "sr117",
+        "governance_baseline",
+        "inventory"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "OWASP-LLM01",
+      "framework": "OWASP LLM Top 10 2025",
+      "citation": "OWASP Top 10 for LLM Applications 2025, LLM01:Prompt Injection",
+      "source_url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      "kind": "threat_category",
+      "code": "LLM01",
+      "function": "AppSec",
+      "category": "LLM application risks",
+      "title": "Prompt Injection",
+      "official_text": "User or untrusted content alters the LLM's behaviour or instructions (direct or indirect).",
+      "tags": [
+        "owasp",
+        "genai",
+        "security"
+      ],
+      "crosswalk": [
+        "NIST-MEASURE-2.7",
+        "EU-ART-15"
+      ],
+      "procedure": {
+        "id": "PROC-OWASP-LLM01",
+        "title": "Prompt injection (direct and indirect)",
+        "target_roles": [
+          "Lead LLM engineer",
+          "AppSec"
+        ],
+        "inquiry": "How do you separate untrusted retrieved or tool content from developer instructions, and what tests prove the boundary holds?",
+        "observe": "Live prompt construction. Look for delimiters, privilege reduction, and tool-call confirmation. For RAG, inspect a document containing instruction-like text.",
+        "evidence": [
+          "Prompt-template and orchestration code showing instruction/data separation",
+          "Adversarial test results for direct and indirect injection",
+          "Tool-gateway policy that does not blindly execute model-proposed actions"
+        ],
+        "test": "Review one indirect-injection test using retrieved content. Confirm the tool layer does not treat model text as authorization.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "OWASP-LLM02",
+      "framework": "OWASP LLM Top 10 2025",
+      "citation": "OWASP Top 10 for LLM Applications 2025, LLM02:Sensitive Information Disclosure",
+      "source_url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      "kind": "threat_category",
+      "code": "LLM02",
+      "function": "AppSec",
+      "category": "LLM application risks",
+      "title": "Sensitive Information Disclosure",
+      "official_text": "The system reveals secrets, personal data, or proprietary content in outputs or side channels.",
+      "tags": [
+        "owasp",
+        "genai",
+        "personal_data"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "OWASP-LLM03",
+      "framework": "OWASP LLM Top 10 2025",
+      "citation": "OWASP Top 10 for LLM Applications 2025, LLM03:Supply Chain",
+      "source_url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      "kind": "threat_category",
+      "code": "LLM03",
+      "function": "AppSec",
+      "category": "LLM application risks",
+      "title": "Supply Chain",
+      "official_text": "Compromised models, datasets, plugins, or third-party components introduce risk into the LLM application.",
+      "tags": [
+        "owasp",
+        "genai",
+        "third_party"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "OWASP-LLM04",
+      "framework": "OWASP LLM Top 10 2025",
+      "citation": "OWASP Top 10 for LLM Applications 2025, LLM04:Data and Model Poisoning",
+      "source_url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      "kind": "threat_category",
+      "code": "LLM04",
+      "function": "AppSec",
+      "category": "LLM application risks",
+      "title": "Data and Model Poisoning",
+      "official_text": "Training, fine-tuning, or embedding data is manipulated to degrade or steer model behaviour.",
+      "tags": [
+        "owasp",
+        "genai"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "OWASP-LLM05",
+      "framework": "OWASP LLM Top 10 2025",
+      "citation": "OWASP Top 10 for LLM Applications 2025, LLM05:Improper Output Handling",
+      "source_url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      "kind": "threat_category",
+      "code": "LLM05",
+      "function": "AppSec",
+      "category": "LLM application risks",
+      "title": "Improper Output Handling",
+      "official_text": "Insufficient validation of model output leads to XSS, RCE, data exfiltration, or privilege issues downstream.",
+      "tags": [
+        "owasp",
+        "genai"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "OWASP-LLM06",
+      "framework": "OWASP LLM Top 10 2025",
+      "citation": "OWASP Top 10 for LLM Applications 2025, LLM06:Excessive Agency",
+      "source_url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      "kind": "threat_category",
+      "code": "LLM06",
+      "function": "AppSec",
+      "category": "LLM application risks",
+      "title": "Excessive Agency",
+      "official_text": "The LLM is granted too much autonomy, functionality, or permission to invoke tools and take actions.",
+      "tags": [
+        "owasp",
+        "genai",
+        "agentic"
+      ],
+      "crosswalk": [
+        "NIST-GOVERN-3.2",
+        "EU-ART-14"
+      ],
+      "procedure": {
+        "id": "PROC-OWASP-LLM06",
+        "title": "Excessive agency / tool authorization",
+        "target_roles": [
+          "Agent platform architect",
+          "IAM"
+        ],
+        "inquiry": "Which tools can the agent invoke, under whose identity, and what actions require step-up approval?",
+        "observe": "Tool manifest (MCP or equivalent). Attempt a write action under a read-only user. Confirm identity propagation vs a shared superuser token.",
+        "evidence": [
+          "Tool allowlist / schema with least privilege",
+          "End-user identity propagation design",
+          "Logs of blocked tool calls"
+        ],
+        "test": "Map each production tool to a business-justified permission. Fail if a general-purpose code-exec or payment tool is enabled without dual control.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "OWASP-LLM07",
+      "framework": "OWASP LLM Top 10 2025",
+      "citation": "OWASP Top 10 for LLM Applications 2025, LLM07:System Prompt Leakage",
+      "source_url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      "kind": "threat_category",
+      "code": "LLM07",
+      "function": "AppSec",
+      "category": "LLM application risks",
+      "title": "System Prompt Leakage",
+      "official_text": "Hidden developer instructions, secrets, or policy text in the system prompt are extracted.",
+      "tags": [
+        "owasp",
+        "genai",
+        "security"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "OWASP-LLM08",
+      "framework": "OWASP LLM Top 10 2025",
+      "citation": "OWASP Top 10 for LLM Applications 2025, LLM08:Vector and Embedding Weaknesses",
+      "source_url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      "kind": "threat_category",
+      "code": "LLM08",
+      "function": "AppSec",
+      "category": "LLM application risks",
+      "title": "Vector and Embedding Weaknesses",
+      "official_text": "Retrieval/embedding pipelines allow data leakage, poisoning, or authorization bypass via the vector store.",
+      "tags": [
+        "owasp",
+        "genai",
+        "rag"
+      ],
+      "crosswalk": [
+        "NIST-MEASURE-2.7",
+        "NIST-MEASURE-2.10"
+      ],
+      "procedure": {
+        "id": "PROC-OWASP-LLM08",
+        "title": "Vector store authorization and poisoning",
+        "target_roles": [
+          "RAG / search engineer",
+          "Data owner"
+        ],
+        "inquiry": "Does retrieval enforce the requesting user's entitlements, and how is corpus integrity controlled?",
+        "observe": "Query the index as a low-privilege user. Inspect ingestion pipeline for access control on source documents and for poisoning tests.",
+        "evidence": [
+          "Document-level ACL enforcement at retrieval time (not only at UI)",
+          "Ingestion provenance and change control for the corpus",
+          "Tests for embedding inversion / cross-tenant retrieval if multi-tenant"
+        ],
+        "test": "Two-user retrieval test: user A must not receive user B documents. Record queries and hits.",
+        "authored_by": "ABF workpaper procedure (not the source standard)"
+      }
+    },
+    {
+      "id": "OWASP-LLM09",
+      "framework": "OWASP LLM Top 10 2025",
+      "citation": "OWASP Top 10 for LLM Applications 2025, LLM09:Misinformation",
+      "source_url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      "kind": "threat_category",
+      "code": "LLM09",
+      "function": "AppSec",
+      "category": "LLM application risks",
+      "title": "Misinformation",
+      "official_text": "The system produces false, unsupported, or hallucinated content that users may rely on.",
+      "tags": [
+        "owasp",
+        "genai"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "OWASP-LLM10",
+      "framework": "OWASP LLM Top 10 2025",
+      "citation": "OWASP Top 10 for LLM Applications 2025, LLM10:Unbounded Consumption",
+      "source_url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      "kind": "threat_category",
+      "code": "LLM10",
+      "function": "AppSec",
+      "category": "LLM application risks",
+      "title": "Unbounded Consumption",
+      "official_text": "Uncontrolled inference, tool calls, or context growth causes denial of service or cost/resource abuse.",
+      "tags": [
+        "owasp",
+        "genai"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GAI-CBRN",
+      "framework": "NIST AI 600-1",
+      "citation": "NIST AI 600-1 (July 2024), GAI risk: CBRN information or capabilities",
+      "source_url": "https://doi.org/10.6028/NIST.AI.600-1",
+      "kind": "risk_category",
+      "code": "GAI-CBRN",
+      "function": "GAI Profile",
+      "category": "Generative AI risks",
+      "title": "CBRN information or capabilities",
+      "official_text": "Generative systems may lower barriers to chemical, biological, radiological, or nuclear information or capabilities.",
+      "tags": [
+        "gai_profile",
+        "genai"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GAI-CONFAB",
+      "framework": "NIST AI 600-1",
+      "citation": "NIST AI 600-1 (July 2024), GAI risk: Confabulation",
+      "source_url": "https://doi.org/10.6028/NIST.AI.600-1",
+      "kind": "risk_category",
+      "code": "GAI-CONFAB",
+      "function": "GAI Profile",
+      "category": "Generative AI risks",
+      "title": "Confabulation",
+      "official_text": "The model produces plausible but incorrect or fabricated content (hallucination).",
+      "tags": [
+        "gai_profile",
+        "genai"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GAI-VIOLENT",
+      "framework": "NIST AI 600-1",
+      "citation": "NIST AI 600-1 (July 2024), GAI risk: Dangerous or violent recommendations",
+      "source_url": "https://doi.org/10.6028/NIST.AI.600-1",
+      "kind": "risk_category",
+      "code": "GAI-VIOLENT",
+      "function": "GAI Profile",
+      "category": "Generative AI risks",
+      "title": "Dangerous or violent recommendations",
+      "official_text": "Outputs may recommend or enable dangerous or violent activity.",
+      "tags": [
+        "gai_profile",
+        "genai"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GAI-PRIVACY",
+      "framework": "NIST AI 600-1",
+      "citation": "NIST AI 600-1 (July 2024), GAI risk: Data privacy",
+      "source_url": "https://doi.org/10.6028/NIST.AI.600-1",
+      "kind": "risk_category",
+      "code": "GAI-PRIVACY",
+      "function": "GAI Profile",
+      "category": "Generative AI risks",
+      "title": "Data privacy",
+      "official_text": "Training, prompts, retrieval, or outputs may expose or mishandle personal or sensitive data.",
+      "tags": [
+        "gai_profile",
+        "genai"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GAI-ENV",
+      "framework": "NIST AI 600-1",
+      "citation": "NIST AI 600-1 (July 2024), GAI risk: Environmental",
+      "source_url": "https://doi.org/10.6028/NIST.AI.600-1",
+      "kind": "risk_category",
+      "code": "GAI-ENV",
+      "function": "GAI Profile",
+      "category": "Generative AI risks",
+      "title": "Environmental",
+      "official_text": "Training and operating generative models can have significant energy and environmental impact.",
+      "tags": [
+        "gai_profile",
+        "genai"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GAI-BIAS",
+      "framework": "NIST AI 600-1",
+      "citation": "NIST AI 600-1 (July 2024), GAI risk: Harmful bias and homogenization",
+      "source_url": "https://doi.org/10.6028/NIST.AI.600-1",
+      "kind": "risk_category",
+      "code": "GAI-BIAS",
+      "function": "GAI Profile",
+      "category": "Generative AI risks",
+      "title": "Harmful bias and homogenization",
+      "official_text": "Generated content may encode harmful bias or collapse diverse outputs toward homogenized representations.",
+      "tags": [
+        "gai_profile",
+        "genai"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GAI-CONFIG",
+      "framework": "NIST AI 600-1",
+      "citation": "NIST AI 600-1 (July 2024), GAI risk: Human-AI configuration",
+      "source_url": "https://doi.org/10.6028/NIST.AI.600-1",
+      "kind": "risk_category",
+      "code": "GAI-CONFIG",
+      "function": "GAI Profile",
+      "category": "Generative AI risks",
+      "title": "Human-AI configuration",
+      "official_text": "Risks arise from how humans and generative systems are configured to interact, oversee, and rely on each other.",
+      "tags": [
+        "gai_profile",
+        "genai"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GAI-INTEGRITY",
+      "framework": "NIST AI 600-1",
+      "citation": "NIST AI 600-1 (July 2024), GAI risk: Information integrity",
+      "source_url": "https://doi.org/10.6028/NIST.AI.600-1",
+      "kind": "risk_category",
+      "code": "GAI-INTEGRITY",
+      "function": "GAI Profile",
+      "category": "Generative AI risks",
+      "title": "Information integrity",
+      "official_text": "Generated or manipulated content can undermine authenticity, provenance, and public information integrity.",
+      "tags": [
+        "gai_profile",
+        "genai"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GAI-SECURITY",
+      "framework": "NIST AI 600-1",
+      "citation": "NIST AI 600-1 (July 2024), GAI risk: Information security",
+      "source_url": "https://doi.org/10.6028/NIST.AI.600-1",
+      "kind": "risk_category",
+      "code": "GAI-SECURITY",
+      "function": "GAI Profile",
+      "category": "Generative AI risks",
+      "title": "Information security",
+      "official_text": "Generative systems expand attack surface (prompt injection, data exfiltration, malware generation, credential leakage).",
+      "tags": [
+        "gai_profile",
+        "genai"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GAI-IP",
+      "framework": "NIST AI 600-1",
+      "citation": "NIST AI 600-1 (July 2024), GAI risk: Intellectual property",
+      "source_url": "https://doi.org/10.6028/NIST.AI.600-1",
+      "kind": "risk_category",
+      "code": "GAI-IP",
+      "function": "GAI Profile",
+      "category": "Generative AI risks",
+      "title": "Intellectual property",
+      "official_text": "Training data and outputs may implicate copyright, trademark, trade secrets, or licensed content.",
+      "tags": [
+        "gai_profile",
+        "genai"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GAI-ABUSIVE",
+      "framework": "NIST AI 600-1",
+      "citation": "NIST AI 600-1 (July 2024), GAI risk: Obscene, degrading, and/or abusive content",
+      "source_url": "https://doi.org/10.6028/NIST.AI.600-1",
+      "kind": "risk_category",
+      "code": "GAI-ABUSIVE",
+      "function": "GAI Profile",
+      "category": "Generative AI risks",
+      "title": "Obscene, degrading, and/or abusive content",
+      "official_text": "Systems may generate or fail to block obscene, degrading, or abusive material.",
+      "tags": [
+        "gai_profile",
+        "genai"
+      ],
+      "crosswalk": []
+    },
+    {
+      "id": "NIST-GAI-VALUECHAIN",
+      "framework": "NIST AI 600-1",
+      "citation": "NIST AI 600-1 (July 2024), GAI risk: Value chain and component integration",
+      "source_url": "https://doi.org/10.6028/NIST.AI.600-1",
+      "kind": "risk_category",
+      "code": "GAI-VALUECHAIN",
+      "function": "GAI Profile",
+      "category": "Generative AI risks",
+      "title": "Value chain and component integration",
+      "official_text": "Risk concentrates in third-party models, data, tools, plugins, and downstream integration.",
+      "tags": [
+        "gai_profile",
+        "genai"
+      ],
+      "crosswalk": []
+    }
+  ],
+  "procedure_count": 28
+}
