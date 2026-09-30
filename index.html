@@ -12,30 +12,31 @@
   <link rel="stylesheet" href="assets/abf.css">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="app-header">
     <div class="app-header-inner">
       <div class="brand">
-        <div class="mark">ABF</div>
+        <div class="mark" aria-hidden="true">ABF</div>
         <div>
           <h1>Auditor’s Best Friend</h1>
           <p>Sourced AI-audit scoping, control extraction, and walkthrough workbench</p>
         </div>
       </div>
       <div class="header-meta">
-        <div>v2.0 · workpaper edition</div>
+        <div>v2.1 · fieldwork edition</div>
         <div>NIST AI 100-1 · Reg. (EU) 2024/1689 · ISO/IEC 42001 titles</div>
       </div>
     </div>
     <nav class="primary" aria-label="Primary">
       <a href="#home">Overview</a>
       <a href="#scope">Scope an audit</a>
-      <a href="#results">Workpaper</a>
+      <a href="#results">Workpaper <span id="wp-badge" class="nav-badge hidden" aria-live="polite"></span></a>
       <a href="#library">Control library</a>
       <a href="#sources">Sources &amp; method</a>
     </nav>
   </header>
 
-  <main>
+  <main id="main">
     <section data-view="home">
       <div class="hero">
         <div>
@@ -51,6 +52,7 @@
           </p>
           <div class="btn-row">
             <a class="btn" href="#scope">Start a scoping engagement</a>
+            <button class="btn btn-accent" type="button" id="home-sample">Open sample workpaper</button>
             <a class="btn btn-secondary" href="#library">Browse the sourced library</a>
           </div>
         </div>
@@ -60,8 +62,12 @@
             <li>Record the system, owner, auditor role, and markets.</li>
             <li>Characterize architecture (classic ML, RAG, agentic, GPAI).</li>
             <li>Screen intended purpose against EU Annex III and Article 5 — with Art. 6(3) modelled.</li>
-            <li>Export applicable official requirements, evidence, and walkthroughs.</li>
+            <li>Track evidence, run walkthroughs by role, and export the workpaper.</li>
           </ol>
+          <p class="hero-card-note">Draft answers autosave in this browser. Import a previously exported JSON to resume fieldwork.</p>
+          <div class="btn-row">
+            <button class="btn btn-secondary" type="button" data-import>Import workpaper JSON</button>
+          </div>
         </aside>
       </div>
 
@@ -92,22 +98,25 @@
 
     <section data-view="scope" class="hidden">
       <div class="wizard">
-        <ol class="steps">
-          <li data-step="1" class="active">1. Engagement</li>
-          <li data-step="2">2. Role &amp; markets</li>
-          <li data-step="3">3. Architecture</li>
-          <li data-step="4">4. Intended purpose</li>
-          <li data-step="5">5. Prohibited &amp; data</li>
-          <li data-step="6">6. Generate</li>
+        <div class="wizard-nav">
+        <ol class="steps" aria-label="Scoping steps">
+          <li data-step="1" class="active"><button type="button">1. Engagement</button></li>
+          <li data-step="2"><button type="button">2. Role &amp; markets</button></li>
+          <li data-step="3"><button type="button">3. Architecture</button></li>
+          <li data-step="4"><button type="button">4. Intended purpose</button></li>
+          <li data-step="5"><button type="button">5. Prohibited &amp; data</button></li>
+          <li data-step="6"><button type="button">6. Generate</button></li>
         </ol>
+        <button class="btn-ghost" type="button" data-reset>New engagement</button>
+        </div>
 
         <div>
           <div class="form-section wizard-pane" data-step="1">
             <h2>Engagement record</h2>
             <p class="help">These fields header the workpaper. Nothing here classifies the system.</p>
             <div class="two">
-              <label class="field">AI system name
-                <input id="sys-name" type="text" name="system_name" placeholder="e.g. Retail collections ranking model" autocomplete="off">
+              <label class="field required">AI system name
+                <input id="sys-name" type="text" name="system_name" placeholder="e.g. Retail collections ranking model" autocomplete="off" required>
               </label>
               <label class="field">System owner
                 <input type="text" name="owner" placeholder="Named accountable executive">
@@ -129,7 +138,13 @@
               <span class="hint">One or two sentences. This is the EU Art. 11 / Annex IV input and the SR 11-7 purpose statement.</span>
               <textarea name="intended_purpose" placeholder="What decision or output does this system produce, for whom, in which setting?"></textarea>
             </label>
-            <button class="btn" type="button" data-next>Continue</button>
+            <p class="field-error hidden" id="name-error" role="alert">Name the AI system before continuing. It headers every export.</p>
+            <div class="btn-row">
+              <button class="btn" type="button" data-next>Continue</button>
+              <button class="btn btn-secondary" type="button" id="fill-sample">Fill sample answers</button>
+              <button class="btn btn-secondary" type="button" data-import>Import JSON</button>
+              <button class="btn btn-secondary" type="button" data-reset>Clear form</button>
+            </div>
           </div>
 
           <div class="form-section wizard-pane hidden" data-step="2">
@@ -164,12 +179,32 @@
             <h2>System characterization</h2>
             <p class="help">Architecture selects overlays (OWASP LLM Top 10, NIST AI 600-1). It does not, by itself, create EU high-risk status.</p>
             <p class="cite">Architecture (select all that apply)</p>
-            <div class="check-grid">
-              <label class="check"><input type="checkbox" data-group="architecture" value="classic_ml"> Classic ML / scoring model</label>
-              <label class="check"><input type="checkbox" data-group="architecture" value="llm_chat"> Generative LLM (chat / content)</label>
-              <label class="check"><input type="checkbox" data-group="architecture" value="rag"> Retrieval-augmented (RAG)</label>
-              <label class="check"><input type="checkbox" data-group="architecture" value="agentic"> Agentic (tools, MCP, write actions)</label>
-              <label class="check"><input type="checkbox" data-group="architecture" value="biometrics"> Biometrics / computer vision</label>
+            <div class="choice-grid">
+              <label class="choice">
+                <input type="checkbox" data-group="architecture" value="classic_ml">
+                <span class="choice-title">Classic ML</span>
+                <span class="choice-hint">Scoring, ranking, tabular or statistical models</span>
+              </label>
+              <label class="choice">
+                <input type="checkbox" data-group="architecture" value="llm_chat">
+                <span class="choice-title">Generative LLM</span>
+                <span class="choice-hint">Chat, drafting, or other generated content</span>
+              </label>
+              <label class="choice">
+                <input type="checkbox" data-group="architecture" value="rag">
+                <span class="choice-title">Retrieval-augmented</span>
+                <span class="choice-hint">Policy, knowledge, or document retrieval (RAG)</span>
+              </label>
+              <label class="choice">
+                <input type="checkbox" data-group="architecture" value="agentic">
+                <span class="choice-title">Agentic</span>
+                <span class="choice-hint">Tools, MCP, write actions — not an EU high-risk trigger</span>
+              </label>
+              <label class="choice">
+                <input type="checkbox" data-group="architecture" value="biometrics">
+                <span class="choice-title">Biometrics / CV</span>
+                <span class="choice-hint">Face, voice, or computer-vision identification</span>
+              </label>
             </div>
             <label class="check"><input type="checkbox" name="third_party_model_or_api"> Third-party model, API, or managed vector store</label>
             <label class="check"><input type="checkbox" name="gpai_model_provider"> We provide a general-purpose AI model (not only an app on top of one)</label>
@@ -237,13 +272,14 @@
           <div class="form-section wizard-pane hidden" data-step="6">
             <h2>Generate the workpaper</h2>
             <p class="help">ABF will filter the sourced library using the answers on the previous steps, attach walkthrough procedures where we have authored them, and leave every official citation intact.</p>
+            <div id="preview-mount"></div>
             <div class="notice info">
-              You can still change answers by stepping back. Generated files are workpapers for the audit file, not vendor-API payloads.
+              You can still change answers by stepping back. Generated files are workpapers for the audit file, not vendor-API payloads. Testing status and notes stay in this browser until you export JSON.
             </div>
             <div class="btn-row">
               <button class="btn btn-secondary" type="button" data-back>Back</button>
               <button class="btn btn-accent" type="button" id="generate-btn">Extract applicable requirements</button>
-              <button class="btn btn-secondary" type="button" id="reset-engagement">Start a new engagement</button>
+              <button class="btn btn-secondary" type="button" data-reset>Start a new engagement</button>
             </div>
           </div>
         </div>
@@ -268,6 +304,9 @@
     <p>ABF (Auditor’s Best Friend) · MIT License. Library text from public sources as cited. ISO/IEC 42001 titles only.</p>
     <p>Not a substitute for Regulation (EU) 2024/1689, NIST AI 100-1, ISO/IEC 42001:2023, or OCC Bulletin 2011-12.</p>
   </footer>
+
+  <input id="import-file" type="file" accept="application/json,.json" hidden>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script src="assets/engine.js"></script>
   <script src="assets/app.js"></script>
