@@ -15,15 +15,19 @@
 - ISO/IEC 42001 A.8 is "Information for interested parties"; A.8.4 is "Communication of incidents", not system protection. Do not reuse ISO 27001 numbering on ISO 42001.
 - EU AI Act high-risk is Art. 6 + Annex I/III, not "handles PII" or "is agentic". Art. 6(3) exceptions and profiling override must be modeled.
 - Distinguish official requirement text from ABF-authored audit procedures and evidence checklists.
+- Keep the navy/parchment/serif workbench language; polish within it rather than restyling the product.
+- Testing status, notes, and meeting agendas are ABF workpaper metadata — they must not look like official control IDs.
 
 # Scratchpad
 
 ## Task
-Deploy the ABF workbench updates to GitHub Pages (and Netlify if authenticated).
+The user likes the current workbench view. Walk features end-to-end, improve design language and usability without abandoning navy/parchment/serif, and add auditor-experience features.
 
 ## Plan
-[X] Confirm Pages status and live URL
-[X] Harden Pages (.nojekyll, 404, asset-root fetch, README live link)
-[ ] Commit, push, PR; verify https://saiyellanki.github.io/ABF/
-[ ] Netlify: deploy if auth available, otherwise report blocker
+[X] Review SPA, engine, fixture, CSS
+[ ] Implement UX: sticky header, focus, architecture cards, required name, live preview, sample, import
+[ ] Implement fieldwork: testing status, notes, agenda, filters, copy citation, evidence CSV, screening memo
+[ ] Browser-verify, commit, push, PR, deploy
 
+## Notes
+Sample answers live at tests/fixtures/credit_assistant.json (EU Annex III(5) + profiling + US bank + RAG).

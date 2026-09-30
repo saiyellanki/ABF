@@ -11,7 +11,9 @@ Second-line risk, internal audit (3LoD), and model-risk officers who need to:
 1. Scope an AI system (purpose, actor role, markets, architecture).
 2. See which **NIST AI RMF 1.0** outcomes, **EU AI Act** articles/annexes, **ISO/IEC 42001** Annex A titles, **SR 11-7**, **OWASP LLM Top 10 2025**, and **NIST AI 600-1** GAI risks apply.
 3. Walk AI engineers and auditee teams through questions, live observation, and evidence.
-4. Export a workpaper (JSON, CSV, Markdown, print/PDF) into the audit file.
+4. Export a workpaper (JSON, CSV, evidence register, walkthrough Markdown, screening memo, meeting agenda, print/PDF) into the audit file.
+
+Fieldwork extras in v2.1: sample credit-assistant engagement, JSON import, live screening preview before extract, testing status and auditor notes, role-grouped meeting agendas, framework chips, and a fieldwork-pack filter that hides the unused NIST backbone until you need it.
 
 ## What “100% sourced” means here
 
