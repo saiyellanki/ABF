@@ -38,7 +38,8 @@ Walkthrough questions, evidence checklists, and test steps are **ABF-authored wo
 
 ## Live site
 
-**GitHub Pages:** [https://saiyellanki.github.io/ABF/](https://saiyellanki.github.io/ABF/)
+**GitHub Pages:** [https://saiyellanki.github.io/ABF/](https://saiyellanki.github.io/ABF/)  
+**Netlify:** [https://abf-workbench.netlify.app](https://abf-workbench.netlify.app)
 
 The repository is a static site. GitHub Pages publishes `main` from `/`. A `.nojekyll` file tells Pages not to run Jekyll, so `data/library.json` and `assets/` are served as-is.
 
