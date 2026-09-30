@@ -27,7 +27,7 @@ Rebuild ABF from a 3-step demo with five invented controls into a professional A
 [X] Author sourced library + conservative classification engine
 [X] Build professional static SPA (Netlify) with library, scoping, results, walkthroughs, exports
 [X] Tests for classification (PII ≠ high-risk; Annex III + profiling = high-risk)
-[ ] Browser/manual verification, commit, PR
+[X] Browser/manual verification, commit, PR
 
 ## Product decisions
 - Library = official IDs and official/public text. Procedures = clearly labeled ABF workpapers.

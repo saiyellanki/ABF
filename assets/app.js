@@ -83,7 +83,7 @@
       .replace(/"/g, "&quot;");
   }
 
-  function collectForm() {
+    function collectForm() {
     const root = $("[data-view='scope']");
     if (!root) return;
     $$("input[type='text'], input[type='date'], textarea, select", root).forEach((el) => {
@@ -98,12 +98,37 @@
       if (el.dataset.group) return;
       state.answers[el.name] = el.checked;
     });
+    const named = $("#sys-name");
+    if (named && named.value.trim()) state.answers.system_name = named.value.trim();
     if ((state.answers.markets || []).includes("us_banking")) {
       state.answers.us_supervised_bank = true;
     }
     if ((state.answers.markets || []).includes("eu")) {
       state.answers.eu_in_scope = true;
     }
+  }
+
+  function resetEngagement() {
+    sessionStorage.removeItem("abf-workpaper");
+    state.answers = defaultAnswers();
+    state.result = null;
+    state.applicable = [];
+    state.step = 1;
+    state.tab = "controls";
+    const root = $("[data-view='scope']");
+    $$("input[type='text'], textarea", root).forEach((el) => {
+      el.value = "";
+    });
+    const dateInput = $("input[name='engagement_date']");
+    if (dateInput) dateInput.value = state.answers.engagement_date;
+    $$("input[type='checkbox']", root).forEach((el) => {
+      if (el.name === "iso42001_aims") el.checked = true;
+      else el.checked = false;
+    });
+    const role = $("select[name='role']");
+    if (role) role.value = "deployer";
+    renderWizard();
+    location.hash = "scope";
   }
 
   function generate() {
@@ -202,6 +227,7 @@
         <button class="btn btn-secondary" data-export="csv">Export CSV</button>
         <button class="btn btn-secondary" data-export="md">Export walkthrough Markdown</button>
         <button class="btn btn-secondary" onclick="window.print()">Print / PDF</button>
+        <button class="btn btn-secondary" type="button" id="reset-from-results">Start a new engagement</button>
       </div>
       <div class="tabs no-print">
         <button data-tab="controls" class="${state.tab === "controls" ? "active" : ""}">Controls &amp; requirements</button>
@@ -222,6 +248,7 @@
     $$("[data-export]", mount).forEach((btn) => {
       btn.addEventListener("click", () => exportWorkpaper(btn.dataset.export));
     });
+    $("#reset-from-results")?.addEventListener("click", resetEngagement);
   }
 
   function renderTab() {
@@ -236,9 +263,17 @@
       bindRows(mount);
     } else if (state.tab === "walk") {
       const withProc = state.applicable.filter((o) => o.procedure);
+      const byRole = {};
+      withProc.forEach((o) => {
+        const role = o.procedure.target_roles[0] || "Engagement team";
+        byRole[role] = byRole[role] || [];
+        byRole[role].push(o);
+      });
       mount.innerHTML =
-        `<p class="help">${withProc.length} ABF-authored procedures mapped to official IDs. Use these to structure interviews with engineers and auditee teams. They are not the source standard.</p>` +
-        withProc.map(walkCard).join("");
+        `<p class="help">${withProc.length} ABF-authored procedures, grouped by primary interview role. Expand a card to run the walkthrough. These are not the source standard.</p>` +
+        Object.entries(byRole)
+          .map(([role, items]) => `<h3>${esc(role)}</h3>${items.map((o, i) => walkCard(o, i === 0)).join("")}`)
+          .join("");
     } else if (state.tab === "evidence") {
       const rows = [];
       state.applicable.forEach((o) => {
@@ -306,7 +341,7 @@
       </table>`;
   }
 
-  function walkCard(o) {
+    function walkCard(o, expanded) {
     const p = o.procedure;
     return `
       <article class="walk">
@@ -316,15 +351,18 @@
           <p>Roles: ${esc(p.target_roles.join(" · "))}</p>
         </header>
         <div class="body">
-          <h4>1. Architectural inquiry</h4>
-          <blockquote>${esc(p.inquiry)}</blockquote>
-          <h4>2. What to observe live</h4>
-          <p>${esc(p.observe)}</p>
-          <h4>3. Evidence checklist</h4>
-          <ul>${p.evidence.map((e) => `<li>${esc(e)}</li>`).join("")}</ul>
-          <h4>4. Test procedure</h4>
-          <p>${esc(p.test)}</p>
-          <p class="cite">${esc(p.authored_by)}</p>
+          <details${expanded ? " open" : ""}>
+            <summary>${expanded ? "Walkthrough" : "Open walkthrough"}</summary>
+            <h4>1. Architectural inquiry</h4>
+            <blockquote>${esc(p.inquiry)}</blockquote>
+            <h4>2. What to observe live</h4>
+            <p>${esc(p.observe)}</p>
+            <h4>3. Evidence checklist</h4>
+            <ul>${p.evidence.map((e) => `<li>${esc(e)}</li>`).join("")}</ul>
+            <h4>4. Test procedure</h4>
+            <p>${esc(p.test)}</p>
+            <p class="cite">${esc(p.authored_by)}</p>
+          </details>
         </div>
       </article>`;
   }
@@ -339,7 +377,7 @@
     });
   }
 
-  function renderLibrary() {
+    function renderLibrary() {
     const mount = $("#library-mount");
     if (!mount || !state.library) return;
     const q = state.libraryFilter.q.toLowerCase();
@@ -350,7 +388,8 @@
       return matchFw && (!q || blob.includes(q));
     });
     const frameworks = [...new Set(state.library.obligations.map((o) => o.framework))];
-    mount.innerHTML = `
+    if (!$("#lib-q")) {
+      mount.innerHTML = `
       <p class="kicker">Sourced library</p>
       <h2>Official requirements, titles, and threat categories</h2>
       <p class="help">${state.library.obligations.length} items. NIST subcategory outcomes are reproduced from NIST AI 100-1. EU articles are auditor paraphrases of public law. ISO/IEC 42001 entries are titles only.</p>
@@ -365,20 +404,38 @@
           </select>
         </label>
       </div>
-      <p class="help">${items.length} shown.</p>
-      ${controlTable(items)}
+      <p class="help" id="lib-count"></p>
+      <div id="lib-table"></div>
     `;
-    bindRows(mount);
-    $("#lib-q").addEventListener("input", (e) => {
-      state.libraryFilter.q = e.target.value;
-      renderLibrary();
-      $("#lib-q").focus();
-      $("#lib-q").setSelectionRange(state.libraryFilter.q.length, state.libraryFilter.q.length);
+      $("#lib-q").addEventListener("input", (e) => {
+        state.libraryFilter.q = e.target.value;
+        paintLibraryTable(itemsForLibrary());
+      });
+      $("#lib-fw").addEventListener("change", (e) => {
+        state.libraryFilter.framework = e.target.value;
+        paintLibraryTable(itemsForLibrary());
+      });
+    }
+    paintLibraryTable(items);
+  }
+
+  function itemsForLibrary() {
+    const q = state.libraryFilter.q.toLowerCase();
+    const fw = state.libraryFilter.framework;
+    return state.library.obligations.filter((o) => {
+      const matchFw = fw === "all" || o.framework === fw;
+      const blob = (o.id + o.title + o.official_text + o.citation).toLowerCase();
+      return matchFw && (!q || blob.includes(q));
     });
-    $("#lib-fw").addEventListener("change", (e) => {
-      state.libraryFilter.framework = e.target.value;
-      renderLibrary();
-    });
+  }
+
+  function paintLibraryTable(items) {
+    const count = $("#lib-count");
+    if (count) count.textContent = items.length + " shown.";
+    const table = $("#lib-table");
+    if (!table) return;
+    table.innerHTML = controlTable(items);
+    bindRows(table);
   }
 
   function renderSources() {
@@ -394,7 +451,7 @@
             (s) => `
           <li>
             <h3>${esc(s.name)}</h3>
-            <p class="cite">${esc(s.id)} · ${esc(s.date || "")}</p>
+            <p class="cite">${esc(s.id)}${s.document ? " · " + esc(s.document) : ""} · ${esc(s.date || "")}</p>
             <p><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.url)}</a></p>
             <p>${esc(s.license_note || "")}</p>
           </li>`
@@ -535,6 +592,7 @@
       });
     });
     $("#generate-btn")?.addEventListener("click", generate);
+    $("#reset-engagement")?.addEventListener("click", resetEngagement);
   }
 
   async function boot() {

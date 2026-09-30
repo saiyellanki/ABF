@@ -348,7 +348,8 @@ footer.app-footer {
 }
 .source-list h3 { margin: 0 0 0.3rem; font-family: var(--serif); font-size: 1.05rem; }
 
-.hidden { display: none !important; }
+details { margin-top: 0.4rem; }
+details summary { cursor: pointer; font-weight: 600; color: var(--navy); }
 
 @media (max-width: 900px) {
   .hero, .wizard, .grid-3, .two, .check-grid { grid-template-columns: 1fr; }
