@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ABF — Auditor’s Best Friend · AI audit workbench</title>
+  <meta name="description" content="Professional AI-audit scoping workbench. Extract NIST AI RMF, EU AI Act, ISO/IEC 42001, SR 11-7, and OWASP LLM controls with cited sources, evidence, and engineer walkthroughs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/abf.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="app-header-inner">
+      <div class="brand">
+        <div class="mark">ABF</div>
+        <div>
+          <h1>Auditor’s Best Friend</h1>
+          <p>Sourced AI-audit scoping, control extraction, and walkthrough workbench</p>
+        </div>
+      </div>
+      <div class="header-meta">
+        <div>v2.0 · workpaper edition</div>
+        <div>NIST AI 100-1 · Reg. (EU) 2024/1689 · ISO/IEC 42001 titles</div>
+      </div>
+    </div>
+    <nav class="primary" aria-label="Primary">
+      <a href="#home">Overview</a>
+      <a href="#scope">Scope an audit</a>
+      <a href="#results">Workpaper</a>
+      <a href="#library">Control library</a>
+      <a href="#sources">Sources &amp; method</a>
+    </nav>
+  </header>
+
+  <main>
+    <section data-view="home">
+      <div class="hero">
+        <div>
+          <p class="kicker">For 2LoD risk, 3LoD IT audit, and model-risk officers</p>
+          <h2>Scope the system. Extract the real requirements. Walk the engineers through evidence.</h2>
+          <p class="lede">
+            ABF is a professional workbench for AI audits. Answer questions about intended purpose,
+            role, and architecture. The engine returns <strong>official identifiers</strong> from
+            NIST AI RMF 1.0, the EU AI Act, ISO/IEC 42001 (titles), SR 11-7, OWASP LLM Top 10 2025,
+            and NIST AI 600-1 — each with a citation, source URL, evidence to request, and interview
+            script. It does not invent “ABF-CTL” controls, and it will not label a chatbot high-risk
+            merely because it handles personal data.
+          </p>
+          <div class="btn-row">
+            <a class="btn" href="#scope">Start a scoping engagement</a>
+            <a class="btn btn-secondary" href="#library">Browse the sourced library</a>
+          </div>
+        </div>
+        <aside class="hero-card">
+          <h3>Engagement path</h3>
+          <ol>
+            <li>Record the system, owner, auditor role, and markets.</li>
+            <li>Characterize architecture (classic ML, RAG, agentic, GPAI).</li>
+            <li>Screen intended purpose against EU Annex III and Article 5 — with Art. 6(3) modelled.</li>
+            <li>Export applicable official requirements, evidence, and walkthroughs.</li>
+          </ol>
+        </aside>
+      </div>
+
+      <div class="notice">
+        ABF is an audit-support tool, not legal advice, a notified-body opinion, or an ISO certification
+        decision. Screening conclusions are labelled <em>indicative</em> and cite the rule applied.
+        ISO/IEC 42001 “shall” statements are copyrighted and are not reproduced; titles only.
+      </div>
+
+      <div class="grid-3">
+        <article class="panel">
+          <p class="kicker">01</p>
+          <h3>Accurate classification</h3>
+          <p>EU high-risk follows Article 6 and Annex I/III. Profiling removes the 6(3) exception. SR 11-7 applies to models at supervised US banks, not every LLM.</p>
+        </article>
+        <article class="panel">
+          <p class="kicker">02</p>
+          <h3>Official IDs, not folklore</h3>
+          <p>GOVERN 1.1, Article 14, A.8.4 (communication of incidents — not “system protection”). Every row has a URL you can open during fieldwork.</p>
+        </article>
+        <article class="panel">
+          <p class="kicker">03</p>
+          <h3>Walkthroughs that engineers can answer</h3>
+          <p>Procedures tell you whom to sit with, what to ask, what to watch in a live demo, and what to file as evidence — labelled as ABF workpapers.</p>
+        </article>
+      </div>
+    </section>
+
+    <section data-view="scope" class="hidden">
+      <div class="wizard">
+        <ol class="steps">
+          <li data-step="1" class="active">1. Engagement</li>
+          <li data-step="2">2. Role &amp; markets</li>
+          <li data-step="3">3. Architecture</li>
+          <li data-step="4">4. Intended purpose</li>
+          <li data-step="5">5. Prohibited &amp; data</li>
+          <li data-step="6">6. Generate</li>
+        </ol>
+
+        <div>
+          <div class="form-section wizard-pane" data-step="1">
+            <h2>Engagement record</h2>
+            <p class="help">These fields header the workpaper. Nothing here classifies the system.</p>
+            <div class="two">
+              <label class="field">AI system name
+                <input id="sys-name" type="text" name="system_name" placeholder="e.g. Retail collections ranking model" autocomplete="off">
+              </label>
+              <label class="field">System owner
+                <input type="text" name="owner" placeholder="Named accountable executive">
+              </label>
+              <label class="field">Business unit
+                <input type="text" name="business_unit">
+              </label>
+              <label class="field">Auditor
+                <input type="text" name="auditor">
+              </label>
+              <label class="field">Engagement ID
+                <input type="text" name="engagement_id" placeholder="IA-2026-014">
+              </label>
+              <label class="field">Workpaper date
+                <input type="date" name="engagement_date">
+              </label>
+            </div>
+            <label class="field">Intended purpose
+              <span class="hint">One or two sentences. This is the EU Art. 11 / Annex IV input and the SR 11-7 purpose statement.</span>
+              <textarea name="intended_purpose" placeholder="What decision or output does this system produce, for whom, in which setting?"></textarea>
+            </label>
+            <button class="btn" type="button" data-next>Continue</button>
+          </div>
+
+          <div class="form-section wizard-pane hidden" data-step="2">
+            <h2>Role and markets</h2>
+            <p class="help">EU duties split by <span class="cite">Art. 3</span> actor (provider vs deployer) and by whether output is used in the Union. SR 11-7 is US banking supervisory guidance only.</p>
+            <label class="field">Your organization’s role for this system
+              <select name="role">
+                <option value="deployer">Deployer (uses a system supplied by others)</option>
+                <option value="provider">Provider (places on the market / puts into service)</option>
+                <option value="both">Both provider and deployer</option>
+                <option value="gpai_provider">GPAI model provider (Chapter V)</option>
+              </select>
+            </label>
+            <p class="cite">Markets / supervisory perimeter</p>
+            <div class="check-grid">
+              <label class="check"><input type="checkbox" data-group="markets" value="eu"> EU / output used in the EU</label>
+              <label class="check"><input type="checkbox" data-group="markets" value="uk"> United Kingdom</label>
+              <label class="check"><input type="checkbox" data-group="markets" value="us_banking"> US supervised banking organization</label>
+              <label class="check"><input type="checkbox" data-group="markets" value="us_other"> United States (non-bank)</label>
+              <label class="check"><input type="checkbox" data-group="markets" value="other"> Other / global enterprise</label>
+            </div>
+            <label class="check"><input type="checkbox" name="iso42001_aims" checked>
+              Include ISO/IEC 42001:2023 Annex A titles (obtain the standard for authentic text)
+            </label>
+            <div class="btn-row">
+              <button class="btn btn-secondary" type="button" data-back>Back</button>
+              <button class="btn" type="button" data-next>Continue</button>
+            </div>
+          </div>
+
+          <div class="form-section wizard-pane hidden" data-step="3">
+            <h2>System characterization</h2>
+            <p class="help">Architecture selects overlays (OWASP LLM Top 10, NIST AI 600-1). It does not, by itself, create EU high-risk status.</p>
+            <p class="cite">Architecture (select all that apply)</p>
+            <div class="check-grid">
+              <label class="check"><input type="checkbox" data-group="architecture" value="classic_ml"> Classic ML / scoring model</label>
+              <label class="check"><input type="checkbox" data-group="architecture" value="llm_chat"> Generative LLM (chat / content)</label>
+              <label class="check"><input type="checkbox" data-group="architecture" value="rag"> Retrieval-augmented (RAG)</label>
+              <label class="check"><input type="checkbox" data-group="architecture" value="agentic"> Agentic (tools, MCP, write actions)</label>
+              <label class="check"><input type="checkbox" data-group="architecture" value="biometrics"> Biometrics / computer vision</label>
+            </div>
+            <label class="check"><input type="checkbox" name="third_party_model_or_api"> Third-party model, API, or managed vector store</label>
+            <label class="check"><input type="checkbox" name="gpai_model_provider"> We provide a general-purpose AI model (not only an app on top of one)</label>
+            <label class="check"><input type="checkbox" name="gpai_systemic_flops"> Training compute exceeded 10<sup>25</sup> FLOPs (Art. 51 presumption)</label>
+            <label class="check"><input type="checkbox" name="interacts_with_natural_persons"> Natural persons interact with the system (chatbot, assistant, voice)</label>
+            <label class="check"><input type="checkbox" name="synthetic_content"> Generates synthetic audio, image, video, or text content</label>
+            <div class="btn-row">
+              <button class="btn btn-secondary" type="button" data-back>Back</button>
+              <button class="btn" type="button" data-next>Continue</button>
+            </div>
+          </div>
+
+          <div class="form-section wizard-pane hidden" data-step="4">
+            <h2>Intended purpose versus Annex III</h2>
+            <p class="help">High-risk under <span class="cite">Art. 6(2)</span> is a use-case test. Tick a paragraph only if the authentic Annex III text matches the intended purpose. Source: Commission AI Act Service Desk, Annex III.</p>
+            <label class="check"><input type="checkbox" name="annex_i_safety_component"> Safety component of an Annex I product that requires third-party conformity assessment <span class="cite">Art. 6(1)</span></label>
+            <div class="check-grid">
+              <label class="check"><input type="checkbox" name="annex_iii_1"> Biometrics (RBI, sensitive categorisation, emotion) <span class="cite">III(1)</span></label>
+              <label class="check"><input type="checkbox" name="annex_iii_2"> Critical-infrastructure safety component <span class="cite">III(2)</span></label>
+              <label class="check"><input type="checkbox" name="annex_iii_3"> Education / vocational training <span class="cite">III(3)</span></label>
+              <label class="check"><input type="checkbox" name="annex_iii_4"> Employment, workers’ management, self-employment <span class="cite">III(4)</span></label>
+              <label class="check"><input type="checkbox" name="annex_iii_5"> Essential public/private services (credit, insurance, benefits, emergency) <span class="cite">III(5)</span></label>
+              <label class="check"><input type="checkbox" name="annex_iii_6"> Law enforcement <span class="cite">III(6)</span></label>
+              <label class="check"><input type="checkbox" name="annex_iii_7"> Migration, asylum, border control <span class="cite">III(7)</span></label>
+              <label class="check"><input type="checkbox" name="annex_iii_8"> Administration of justice / democratic processes <span class="cite">III(8)</span></label>
+            </div>
+            <label class="check"><input type="checkbox" name="profiles_natural_persons"> Profiles natural persons (automated processing to evaluate personal aspects)
+              <span class="cite">removes Art. 6(3) exception</span></label>
+            <p class="cite">Article 6(3) — tick only if you believe a listed condition applies (provider must document)</p>
+            <div class="check-grid">
+              <label class="check"><input type="checkbox" name="art63_narrow_procedural"> Narrow procedural task</label>
+              <label class="check"><input type="checkbox" name="art63_improves_human"> Improves a previously completed human activity</label>
+              <label class="check"><input type="checkbox" name="art63_detects_patterns"> Detects decision-making patterns without replacing human assessment</label>
+              <label class="check"><input type="checkbox" name="art63_preparatory"> Purely preparatory task to an Annex III assessment</label>
+            </div>
+            <div class="btn-row">
+              <button class="btn btn-secondary" type="button" data-back>Back</button>
+              <button class="btn" type="button" data-next>Continue</button>
+            </div>
+          </div>
+
+          <div class="form-section wizard-pane hidden" data-step="5">
+            <h2>Prohibited practices, data, and model use</h2>
+            <p class="help">Article 5 items are a <strong>screen</strong>. A tick produces an indicative finding for counsel — not a determination that the system is prohibited.</p>
+            <p class="cite">Article 5 indicators (non-exhaustive labels)</p>
+            <div class="check-grid">
+              <label class="check"><input type="checkbox" data-group="art5_practices" value="social_scoring"> Social scoring causing detrimental treatment</label>
+              <label class="check"><input type="checkbox" data-group="art5_practices" value="untargeted_scrape"> Untargeted facial-image scraping for a recognition database</label>
+              <label class="check"><input type="checkbox" data-group="art5_practices" value="emotion_work_edu"> Emotion recognition at work or in education (check exceptions)</label>
+              <label class="check"><input type="checkbox" data-group="art5_practices" value="criminality_profiling"> Criminality risk solely from profiling / personality</label>
+              <label class="check"><input type="checkbox" data-group="art5_practices" value="rbi_realtime"> Real-time remote biometric ID in public spaces (law enforcement)</label>
+              <label class="check"><input type="checkbox" data-group="art5_practices" value="manipulative"> Subliminal / manipulative techniques causing significant harm</label>
+            </div>
+            <label class="check"><input type="checkbox" name="personal_data"> Processes personal data</label>
+            <label class="check"><input type="checkbox" name="automated_decision"> Output can take effect with limited or no human review</label>
+            <label class="check"><input type="checkbox" name="material_business_decision_model"> Quantitative method used for material business decisions (credit, capital, underwriting, etc.)</label>
+            <label class="check"><input type="checkbox" name="fria_role"> Deployer is a public body, public-service provider, or Annex III 5(b)/(c) actor (Art. 27 FRIA screen)</label>
+            <label class="check"><input type="checkbox" name="deepfake"> Deployer of deep-fake image/audio/video (Art. 50 disclosure)</label>
+            <div class="btn-row">
+              <button class="btn btn-secondary" type="button" data-back>Back</button>
+              <button class="btn" type="button" data-next>Continue</button>
+            </div>
+          </div>
+
+          <div class="form-section wizard-pane hidden" data-step="6">
+            <h2>Generate the workpaper</h2>
+            <p class="help">ABF will filter the sourced library using the answers on the previous steps, attach walkthrough procedures where we have authored them, and leave every official citation intact.</p>
+            <div class="notice info">
+              You can still change answers by stepping back. Generated files are workpapers for the audit file, not vendor-API payloads.
+            </div>
+            <div class="btn-row">
+              <button class="btn btn-secondary" type="button" data-back>Back</button>
+              <button class="btn btn-accent" type="button" id="generate-btn">Extract applicable requirements</button>
+              <button class="btn btn-secondary" type="button" id="reset-engagement">Start a new engagement</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section data-view="results" class="hidden">
+      <div id="results-mount"></div>
+    </section>
+
+    <section data-view="library" class="hidden">
+      <div id="library-mount"></div>
+    </section>
+
+    <section data-view="sources" class="hidden">
+      <div id="sources-mount"></div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>ABF (Auditor’s Best Friend) · MIT License. Library text from public sources as cited. ISO/IEC 42001 titles only.</p>
+    <p>Not a substitute for Regulation (EU) 2024/1689, NIST AI 100-1, ISO/IEC 42001:2023, or OCC Bulletin 2011-12.</p>
+  </footer>
+
+  <script src="assets/engine.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>

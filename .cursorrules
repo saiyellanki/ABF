@@ -19,18 +19,11 @@
 # Scratchpad
 
 ## Task
-Rebuild ABF from a 3-step demo with five invented controls into a professional AI-audit workbench for 2LoD/3LoD auditors: scoping, sourced control extraction, standard alignment, evidence, and engineer walkthroughs. Information must be attributable to NIST AI RMF 1.0, EU AI Act (Reg. 2024/1689), ISO/IEC 42001:2023 titles, SR 11-7 / OCC 2011-12, OWASP LLM Top 10, and NIST AI 600-1.
+Deploy the ABF workbench updates to GitHub Pages (and Netlify if authenticated).
 
 ## Plan
-[X] Review current HTML/Python and identify inaccuracies
-[X] Pull official NIST subcategory outcomes, EU Annex III / Arts. 5–15/26/50–55, ISO 42001 Annex A titles
-[X] Author sourced library + conservative classification engine
-[X] Build professional static SPA (Netlify) with library, scoping, results, walkthroughs, exports
-[X] Tests for classification (PII ≠ high-risk; Annex III + profiling = high-risk)
-[X] Browser/manual verification, commit, PR
+[X] Confirm Pages status and live URL
+[X] Harden Pages (.nojekyll, 404, asset-root fetch, README live link)
+[ ] Commit, push, PR; verify https://saiyellanki.github.io/ABF/
+[ ] Netlify: deploy if auth available, otherwise report blocker
 
-## Product decisions
-- Library = official IDs and official/public text. Procedures = clearly labeled ABF workpapers.
-- ISO 42001: titles only; full "shall" text is copyrighted — point auditors to the purchased standard.
-- Classification output is an indicative screening with cited legal/standard logic, not a legal opinion.
-- No fake Workiva/ServiceNow native APIs. Export workpaper CSV/JSON/Markdown.

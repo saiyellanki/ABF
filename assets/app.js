@@ -595,12 +595,21 @@
     $("#reset-engagement")?.addEventListener("click", resetEngagement);
   }
 
-  async function boot() {
-    const res = await fetch("data/library.json");
+    function siteRoot() {
+      const script = document.querySelector('script[src*="assets/app.js"]');
+      if (script && script.src) {
+        return script.src.replace(/assets\/app\.js(?:\?.*)?$/, "");
+      }
+      const href = window.location.href.split("#")[0];
+      return href.endsWith("/") ? href : href.replace(/\/[^/]*$/, "/");
+    }
+
+    async function boot() {
+    const res = await fetch(siteRoot() + "data/library.json");
     if (!res.ok) {
       document.body.insertAdjacentHTML(
         "afterbegin",
-        `<div class="notice alert">Could not load data/library.json (${res.status}). Serve the site from the repository root.</div>`
+        `<div class="notice alert">Could not load data/library.json (${res.status}). Serve the site from the repository root or GitHub Pages project URL.</div>`
       );
       return;
     }

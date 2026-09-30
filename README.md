@@ -36,7 +36,13 @@ Walkthrough questions, evidence checklists, and test steps are **ABF-authored wo
 - **SR 11-7** is included only for a **US supervised banking organization** using a **material decision model**.
 - ISO **A.8.4** is **Communication of incidents**, not system protection.
 
-## Run the website
+## Live site
+
+**GitHub Pages:** [https://saiyellanki.github.io/ABF/](https://saiyellanki.github.io/ABF/)
+
+The repository is a static site. GitHub Pages publishes `main` from `/`. A `.nojekyll` file tells Pages not to run Jekyll, so `data/library.json` and `assets/` are served as-is.
+
+## Run the website locally
 
 Static site (Netlify-ready). From the repository root:
 
