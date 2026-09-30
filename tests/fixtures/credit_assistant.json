@@ -1,0 +1,22 @@
+{
+  "system_name": "Retail credit decisioning assistant",
+  "owner": "Chief Credit Officer",
+  "business_unit": "Retail banking",
+  "auditor": "Internal Audit — Model Risk",
+  "engagement_id": "IA-2026-014",
+  "engagement_date": "2026-09-30",
+  "intended_purpose": "Assist underwriters in evaluating creditworthiness of natural persons for unsecured consumer loans, with retrieval of policy documents.",
+  "role": "deployer",
+  "markets": ["eu", "us_banking"],
+  "architecture": ["rag", "llm_chat"],
+  "iso42001_aims": true,
+  "third_party_model_or_api": true,
+  "personal_data": true,
+  "automated_decision": false,
+  "interacts_with_natural_persons": false,
+  "synthetic_content": false,
+  "profiles_natural_persons": true,
+  "annex_iii_5": true,
+  "material_business_decision_model": true,
+  "fria_role": true
+}
